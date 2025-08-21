@@ -1,0 +1,549 @@
+/* Tailwind CSS directives */
+/* Tailwind CSS directives - suppress VS Code warnings */
+/* stylelint-disable-next-line at-rule-no-unknown */
+@tailwind base;
+/* stylelint-disable-next-line at-rule-no-unknown */
+@tailwind components;
+/* stylelint-disable-next-line at-rule-no-unknown */
+@tailwind utilities;
+
+/* Modern semantic color system - all colors defined below */
+
+@layer base {
+  :root {
+    /* ===== ELEGANT COLOR PALETTE - EXACT SPECIFICATIONS ===== */
+    /* Core brand colors from color.md specifications */
+    --primary: 340 100% 59%;             /* #FF2E63 - Coral Pink (Primary) */
+    --secondary: 179 93% 44%;            /* #08D9D6 - Turquoise (Secondary) */
+    --neutral: 220 17% 17%;              /* #252A34 - Charcoal (Neutral) */
+    --gray-light: 0 0% 92%;              /* #EAEAEA - Light Gray */
+
+    /* ===== PRIMARY COLOR VARIATIONS - CORAL PINK ===== */
+    /* Based on #FF2E63 with proper contrast ratios */
+    --primary-50: 340 100% 97%;          /* #FFF0F4 - Lightest coral */
+    --primary-100: 340 100% 94%;         /* #FFE0E8 - Very light coral */
+    --primary-200: 340 100% 88%;         /* #FFC0D1 - Light coral */
+    --primary-300: 340 100% 76%;         /* #FF80A3 - Medium light coral */
+    --primary-400: 340 100% 68%;         /* #FF4D83 - Medium coral */
+    --primary-500: 340 100% 59%;         /* #FF2E63 - Primary coral (brand) */
+    --primary-600: 340 90% 50%;          /* #E6295A - Medium dark coral */
+    --primary-700: 340 80% 40%;          /* #CC2450 - Dark coral */
+    --primary-800: 340 70% 32%;          /* #B31F47 - Very dark coral */
+    --primary-900: 340 60% 24%;          /* #991A3D - Darkest coral */
+
+    /* ===== SECONDARY COLOR VARIATIONS - TURQUOISE ===== */
+    /* Based on #08D9D6 with proper accessibility */
+    --secondary-50: 179 93% 97%;         /* #E0FFFE - Lightest turquoise */
+    --secondary-100: 179 93% 94%;        /* #C2FFFD - Very light turquoise */
+    --secondary-200: 179 93% 88%;        /* #85FFFA - Light turquoise */
+    --secondary-300: 179 93% 76%;        /* #47FFF8 - Medium light turquoise */
+    --secondary-400: 179 93% 60%;        /* #0AFFF5 - Medium turquoise */
+    --secondary-500: 179 93% 44%;        /* #08D9D6 - Primary turquoise (brand) */
+    --secondary-600: 179 85% 38%;        /* #07C2BF - Medium dark turquoise */
+    --secondary-700: 179 75% 32%;        /* #06AAA8 - Dark turquoise */
+    --secondary-800: 179 65% 26%;        /* #059390 - Very dark turquoise */
+    --secondary-900: 179 55% 20%;        /* #047C79 - Darkest turquoise */
+
+    /* ===== NEUTRAL COLOR VARIATIONS - CHARCOAL ===== */
+    /* Based on #252A34 for text and UI elements */
+    --neutral-50: 220 17% 95%;           /* #F8F9FA - Lightest neutral */
+    --neutral-100: 220 17% 90%;          /* #E9ECEF - Very light neutral */
+    --neutral-200: 220 17% 80%;          /* #DEE2E6 - Light neutral */
+    --neutral-300: 220 17% 65%;          /* #CED4DA - Medium light neutral */
+    --neutral-400: 220 17% 50%;          /* #ADB5BD - Medium neutral */
+    --neutral-500: 220 17% 35%;          /* #6C757D - Medium dark neutral */
+    --neutral-600: 220 17% 25%;          /* #495057 - Dark neutral */
+    --neutral-700: 220 17% 20%;          /* #343A40 - Very dark neutral */
+    --neutral-800: 220 17% 17%;          /* #252A34 - Primary neutral (brand) */
+    --neutral-900: 220 17% 12%;          /* #1A1D23 - Darkest neutral */
+
+    /* ===== GRAY LIGHT VARIATIONS ===== */
+    /* Based on #EAEAEA for backgrounds and subtle elements */
+    --gray-light-50: 0 0% 98%;           /* #FAFAFA - Lightest gray */
+    --gray-light-100: 0 0% 96%;          /* #F5F5F5 - Very light gray */
+    --gray-light-200: 0 0% 94%;          /* #F0F0F0 - Light gray */
+    --gray-light-300: 0 0% 92%;          /* #EAEAEA - Primary light gray (brand) */
+    --gray-light-400: 0 0% 85%;          /* #D9D9D9 - Medium light gray */
+    --gray-light-500: 0 0% 75%;          /* #BFBFBF - Medium gray */
+    --gray-light-600: 0 0% 65%;          /* #A6A6A6 - Medium dark gray */
+    --gray-light-700: 0 0% 55%;          /* #8C8C8C - Dark gray */
+    --gray-light-800: 0 0% 45%;          /* #737373 - Very dark gray */
+    --gray-light-900: 0 0% 35%;          /* #595959 - Darkest gray */
+
+    /* ===== SEMANTIC COLOR MAPPING - LIGHT MODE ===== */
+    /* Background Colors - Clean and professional */
+    --background: 0 0% 100%;                     /* Pure white main background */
+    --background-secondary: var(--gray-light-300); /* Light gray secondary areas */
+    --background-tertiary: var(--gray-light-50); /* Subtle background variation */
+
+    /* Text/Foreground Colors - Using charcoal for readability */
+    --foreground: var(--neutral-800);            /* Primary text (Charcoal) */
+    --foreground-secondary: var(--neutral-600);  /* Secondary text */
+    --foreground-muted: var(--neutral-500);      /* Muted/disabled text */
+
+    /* Card Colors - Clean card design */
+    --card: 0 0% 100%;                           /* White card background */
+    --card-foreground: var(--neutral-800);       /* Charcoal card text */
+
+    /* Popover Colors - Elevated surfaces */
+    --popover: 0 0% 100%;                        /* White popover background */
+    --popover-foreground: var(--neutral-800);    /* Charcoal popover text */
+
+    /* Primary Colors - Coral Pink for main actions */
+    --primary: var(--primary-500);               /* Coral Pink primary */
+    --primary-foreground: 0 0% 100%;             /* White text on coral */
+
+    /* Secondary Colors - Turquoise for secondary actions */
+    --secondary: var(--secondary-500);           /* Turquoise secondary */
+    --secondary-foreground: 0 0% 100%;           /* White text on turquoise */
+
+    /* Muted Colors - Subtle elements */
+    --muted: var(--gray-light-300);              /* Light gray muted backgrounds */
+    --muted-foreground: var(--neutral-600);      /* Darker text for contrast */
+
+    /* Accent Colors - Turquoise for highlights */
+    --accent: var(--secondary-600);              /* Darker turquoise for accents */
+    --accent-foreground: 0 0% 100%;              /* White text on accents */
+
+    /* Active/Interactive Colors - Coral Pink for active states */
+    --active: var(--primary-500);                /* Coral Pink active elements */
+    --active-foreground: 0 0% 100%;              /* White text on active */
+
+    /* State Colors - Semantic feedback colors */
+    --destructive: var(--primary-500);           /* Coral Pink for destructive */
+    --destructive-foreground: 0 0% 100%;         /* White text on destructive */
+    --success: var(--secondary-600);             /* Turquoise for success */
+    --success-foreground: 0 0% 100%;             /* White text on success */
+    --warning: 43 96% 56%;                       /* Orange for warnings */
+    --warning-foreground: var(--neutral-800);    /* Charcoal text on warning */
+    --info: var(--secondary-400);                /* Light turquoise for info */
+    --info-foreground: var(--neutral-800);       /* Charcoal text on info */
+
+    /* UI Element Colors - Consistent borders and inputs */
+    --border: var(--gray-light-400);             /* Light gray borders */
+    --input: var(--gray-light-400);              /* Light gray input borders */
+    --ring: var(--primary-500);                  /* Coral Pink focus rings */
+
+    /* Chart Colors - Elegant data visualization */
+    --chart-1: var(--secondary-600);             /* Primary chart color */
+    --chart-2: var(--primary-500);               /* Secondary chart color */
+    --chart-3: var(--secondary-400);             /* Tertiary chart color */
+    --chart-4: var(--primary-300);               /* Quaternary chart color */
+    --chart-5: var(--neutral-500);               /* Neutral chart color */
+
+    /* Layout */
+    --radius: 0.5rem;
+  }
+  .dark {
+    /* ===== SEMANTIC COLOR MAPPING - DARK MODE ===== */
+    /* Background Colors - High contrast dark theme */
+    --background: var(--neutral-900);            /* Darkest neutral background */
+    --background-secondary: var(--neutral-800);  /* Charcoal secondary areas */
+    --background-tertiary: var(--neutral-700);   /* Elevated dark surfaces */
+
+    /* Text/Foreground Colors - Light text on dark backgrounds */
+    --foreground: var(--gray-light-100);         /* Very light gray text */
+    --foreground-secondary: var(--gray-light-300); /* Light gray secondary text */
+    --foreground-muted: var(--gray-light-500);   /* Medium gray muted text */
+
+    /* Card Colors - Elevated dark surfaces */
+    --card: var(--neutral-800);                  /* Charcoal card background */
+    --card-foreground: var(--gray-light-100);    /* Light gray card text */
+
+    /* Popover Colors - Floating dark elements */
+    --popover: var(--neutral-700);               /* Dark neutral popover */
+    --popover-foreground: var(--gray-light-100); /* Light gray popover text */
+
+    /* Primary Colors - Coral Pink maintains vibrancy in dark mode */
+    --primary: var(--primary-500);               /* Coral Pink primary */
+    --primary-foreground: 0 0% 100%;             /* White text on coral */
+
+    /* Secondary Colors - Turquoise for secondary actions */
+    --secondary: var(--secondary-500);           /* Turquoise secondary */
+    --secondary-foreground: 0 0% 100%;           /* White text on turquoise */
+
+    /* Muted Colors - Subtle dark elements */
+    --muted: var(--neutral-700);                 /* Dark neutral muted */
+    --muted-foreground: var(--gray-light-400);   /* Medium light gray text */
+
+    /* Accent Colors - Turquoise accents for dark theme */
+    --accent: var(--secondary-600);              /* Darker turquoise accent */
+    --accent-foreground: 0 0% 100%;              /* White text on accents */
+
+    /* Active/Interactive Colors - Coral Pink for active states */
+    --active: var(--primary-500);                /* Coral Pink active */
+    --active-foreground: 0 0% 100%;              /* White text on active */
+
+    /* State Colors - Adjusted for dark theme visibility */
+    --destructive: var(--primary-600);           /* Darker coral for destructive */
+    --destructive-foreground: 0 0% 100%;         /* White text on destructive */
+    --success: var(--secondary-500);             /* Turquoise for success */
+    --success-foreground: 0 0% 100%;             /* White text on success */
+    --warning: 43 96% 56%;                       /* Orange warning (unchanged) */
+    --warning-foreground: var(--neutral-800);    /* Dark text on warning */
+    --info: var(--secondary-300);                /* Light turquoise for info */
+    --info-foreground: var(--neutral-800);       /* Dark text on info */
+
+    /* UI Element Colors - Dark theme borders and inputs */
+    --border: var(--neutral-600);                /* Subtle dark borders */
+    --input: var(--neutral-600);                 /* Dark input borders */
+    --ring: var(--primary-400);                  /* Lighter coral focus rings */
+
+    /* Chart Colors - Optimized for dark theme visibility */
+    --chart-1: var(--secondary-400);             /* Bright turquoise */
+    --chart-2: var(--primary-500);               /* Coral Pink */
+    --chart-3: var(--secondary-600);             /* Darker turquoise */
+    --chart-4: var(--primary-400);               /* Lighter coral */
+    --chart-5: var(--gray-light-500);            /* Medium gray */
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* ===== TYPOGRAPHY HIERARCHY - UX DOCUMENT SPECIFICATIONS ===== */
+/* H1: 28px bold, H2: 24px medium, Body: 16px regular, Captions: 14px regular */
+
+@layer base {
+  h1 {
+    @apply text-[28px] font-bold leading-tight;
+  }
+
+  h2 {
+    @apply text-[24px] font-medium leading-tight;
+  }
+
+  h3 {
+    @apply text-xl font-medium leading-tight;
+  }
+
+  p, body {
+    @apply text-base leading-relaxed;
+  }
+
+  .caption, .text-caption {
+    @apply text-sm leading-normal;
+  }
+
+  /* Mobile responsive typography */
+  @media (max-width: 768px) {
+    h1 {
+      @apply text-2xl;
+    }
+
+    h2 {
+      @apply text-xl;
+    }
+  }
+}
+
+/* ===== SPACING SYSTEM - UX DOCUMENT SPECIFICATIONS ===== */
+/* 24px minimum between major sections, 16px between related elements */
+
+@layer utilities {
+  .section-spacing {
+    @apply mb-6; /* 24px */
+  }
+
+  .element-spacing {
+    @apply mb-4; /* 16px */
+  }
+
+  .tight-spacing {
+    @apply mb-2; /* 8px for very related elements */
+  }
+}
+
+/* ===== ANIMATIONS & TRANSITIONS ===== */
+/* Smooth micro-interactions and user feedback animations */
+
+@layer utilities {
+  .animate-fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  .animate-scale-in {
+    animation: scaleIn 0.2s ease-out;
+  }
+
+  .animate-success-pulse {
+    animation: successPulse 0.6s ease-in-out;
+  }
+
+  .transition-smooth {
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .hover-lift {
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes successPulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* ===== CROSS-BROWSER COMPATIBILITY ===== */
+/* Ensure consistent behavior across different browsers and devices */
+
+@layer base {
+  /* Improve text rendering across browsers */
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Ensure consistent box-sizing */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* Improve touch scrolling on iOS */
+  body {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Prevent zoom on input focus on iOS */
+  input, select, textarea {
+    font-size: 16px;
+  }
+
+  /* Improve button appearance on iOS */
+  button, input[type="submit"], input[type="button"] {
+    -webkit-appearance: none;
+    appearance: none;
+  }
+}
+
+/* ===== COMPONENT UTILITY CLASSES ===== */
+/* Pre-built component classes for consistent styling */
+
+@layer utilities {
+  /* Button Components - Based on color.md specifications */
+  .btn-primary {
+    @apply bg-primary hover:bg-primary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary hover:bg-secondary-600 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-outline {
+    @apply border-2 border-primary text-primary hover:bg-primary hover:text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  .btn-ghost {
+    @apply text-primary hover:text-primary-600 hover:bg-primary-50 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+  }
+
+  /* Card Component - Clean and elegant */
+  .card {
+    @apply bg-white rounded-lg border border-gray-light p-6 hover:shadow-lg transition-shadow duration-300;
+  }
+
+  /* Input Field Component - Consistent form styling */
+  .input-field {
+    @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-primary transition-colors duration-200;
+  }
+
+  /* Text Color Utilities - Semantic naming */
+  .text-primary-brand {
+    @apply text-primary;
+  }
+
+  .text-secondary-brand {
+    @apply text-secondary;
+  }
+
+  .text-neutral-brand {
+    @apply text-neutral-800;
+  }
+
+  .text-muted-brand {
+    @apply text-neutral-500;
+  }
+
+  /* Background Utilities - Professional combinations */
+  .bg-professional {
+    @apply bg-gray-light text-neutral-800;
+  }
+
+  /* ===== MOBILE-FIRST RESPONSIVE UTILITIES ===== */
+
+  /* Simple, working responsive utilities */
+  .mobile-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .mobile-section {
+    @apply py-8 sm:py-12 lg:py-16;
+  }
+
+  .mobile-card {
+    @apply bg-card rounded-lg border border-border p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+
+  .mobile-button {
+    @apply min-h-[44px] px-4 py-2 text-base font-medium rounded-md transition-colors duration-200;
+  }
+
+  .mobile-input {
+    @apply min-h-[44px] px-3 py-2 text-base border border-input rounded-md bg-background;
+  }
+
+  /* ===== ACCESSIBILITY & PERFORMANCE ===== */
+
+  /* Reduced Motion Support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+
+  /* Focus Visible Improvements */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2;
+  }
+
+  /* Skip Link */
+  .skip-link {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded z-50;
+  }
+
+  .bg-modern {
+    @apply bg-neutral-800 text-gray-light;
+  }
+
+  .bg-soft {
+    @apply bg-white text-neutral-800;
+  }
+}
+
+/* ===== QR DIFFUSION ANIMATIONS ===== */
+/* Smooth diffusion-like transitions for QR code updates */
+
+@layer utilities {
+  /* Animation delay utilities */
+  .animation-delay-150 {
+    animation-delay: 150ms;
+  }
+
+  .animation-delay-300 {
+    animation-delay: 300ms;
+  }
+
+  .animation-delay-450 {
+    animation-delay: 450ms;
+  }
+
+  /* Smooth blur transitions */
+  .blur-transition {
+    transition: filter 0.3s ease-out, transform 0.3s ease-out, opacity 0.3s ease-out;
+  }
+}
+
+/* QR transformation keyframes - subtle in-place morphing */
+@keyframes qr-morph {
+  0% {
+    transform: scale(1);
+    filter: blur(0px) brightness(1);
+  }
+  50% {
+    transform: scale(1.02);
+    filter: blur(1px) brightness(0.8);
+  }
+  100% {
+    transform: scale(1);
+    filter: blur(0px) brightness(1);
+  }
+}
+
+@keyframes qr-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes subtle-pulse {
+  0%, 100% {
+    opacity: 0.1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.3;
+    transform: scale(1.01);
+  }
+}
+
+/* Animation classes */
+.qr-morph {
+  animation: qr-morph 0.5s ease-in-out;
+}
+
+.qr-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: qr-shimmer 1s ease-in-out;
+}
+
+.subtle-pulse {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
