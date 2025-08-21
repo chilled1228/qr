@@ -547,3 +547,138 @@
 .subtle-pulse {
   animation: subtle-pulse 2s ease-in-out infinite;
 }
+
+/* ===== MOBILE-SPECIFIC TAB OPTIMIZATIONS ===== */
+/* Full-screen mobile QR generator - Flexible height */
+.mobile-qr-container {
+  @apply w-full;
+  min-height: 500px; /* Minimum usable height */
+  max-height: none; /* Allow natural height */
+}
+
+/* Mobile tab content areas - Allow scrolling when needed */
+.mobile-tab-content {
+  @apply flex-1;
+  min-height: 400px; /* Ensure minimum content area */
+  overflow-y: auto; /* Allow scrolling if content is too tall */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* Mobile tabs list - Touch-friendly */
+.mobile-tabs-list {
+  @apply rounded-lg border bg-muted/30 p-1 mb-4;
+  height: auto;
+  min-height: 56px;
+  flex-shrink: 0;
+}
+
+/* Mobile tab triggers - Optimized for touch */
+.mobile-tab-trigger {
+  @apply text-sm font-medium py-3 px-2 flex-1 flex items-center justify-center gap-2;
+  min-height: 48px; /* iOS touch target */
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.mobile-tab-trigger[data-state="active"] {
+  @apply bg-background text-foreground shadow-sm;
+}
+
+.mobile-tab-trigger:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Mobile form optimizations */
+.mobile-form-input {
+  @apply h-12 text-base px-4 py-3;
+  font-size: 16px; /* Prevents zoom on iOS */
+}
+
+.mobile-form-label {
+  @apply text-sm font-medium mb-2;
+}
+
+/* Mobile button optimizations */
+.mobile-action-button {
+  @apply h-12 text-base font-medium;
+  min-height: 44px; /* iOS touch target */
+}
+
+/* ===== RESPONSIVE TAB LAYOUT OPTIMIZATIONS ===== */
+/* Ensure proper height management across devices */
+@media (max-width: 640px) {
+  .mobile-qr-container {
+    min-height: 400px; /* Smaller minimum on mobile */
+  }
+
+  .mobile-tab-content {
+    min-height: 350px; /* Smaller content area on mobile */
+  }
+
+  .mobile-tabs-list {
+    min-height: 52px;
+  }
+
+  .mobile-tab-trigger {
+    @apply text-xs px-1;
+    min-height: 44px;
+  }
+
+  /* Stack layout on mobile for better visibility */
+  .mobile-card .grid {
+    @apply grid-cols-1 gap-4;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1023px) {
+  .mobile-qr-container {
+    min-height: 500px;
+  }
+
+  .mobile-tab-content {
+    min-height: 450px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .mobile-qr-container {
+    min-height: 600px;
+  }
+
+  .mobile-tab-content {
+    min-height: 550px;
+  }
+}
+
+/* ===== TAB CONTENT VISIBILITY IMPROVEMENTS ===== */
+/* Ensure all content is properly visible */
+.mobile-tab-content .mobile-card {
+  @apply p-4 sm:p-6;
+  min-height: auto;
+}
+
+/* Improve spacing in tab content */
+.mobile-tab-content .space-y-4 > * + * {
+  margin-top: 1rem;
+}
+
+/* Ensure QR display is properly sized */
+.mobile-tab-content .aspect-square {
+  max-width: 300px;
+  margin: 0 auto;
+}
+
+/* Better button visibility */
+.mobile-tab-content .mobile-button {
+  @apply text-sm sm:text-base;
+  padding: 0.75rem 1rem;
+}
+
+/* Compact form styling for tabs */
+.mobile-tab-content .space-y-4 {
+  @apply space-y-3;
+}
+
+.mobile-tab-content h2 {
+  @apply text-base sm:text-lg;
+}

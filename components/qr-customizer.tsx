@@ -130,14 +130,8 @@ export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
   ];
 
   return (
-    <Card className="bg-card/70 backdrop-blur-sm border-0 shadow-xl">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Palette className="h-5 w-5" />
-          Customize QR Code
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
+    <div className="space-y-4">
+      <div className="space-y-4">
         {/* Size Control */}
         <div>
           <Label>Size: {options.size}px</Label>
@@ -294,7 +288,7 @@ export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
             />
           </div>
         </div>
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 }

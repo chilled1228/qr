@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useCallback } from 'react';
-import { QrCode } from 'lucide-react';
+import { QrCode, Download, Palette } from 'lucide-react';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { QRForm } from './qr-form';
 import { QRDisplay } from './qr-display';
+import { QRCustomizer } from './qr-customizer';
 import { useRealtimeQR } from '@/hooks/use-realtime-qr';
 import type { QRFormData, QROptions } from '@/types/qr-types';
 import { toast } from 'sonner';
@@ -49,46 +51,173 @@ export function QRGenerator() {
     setQROptions(options);
   }, []);
 
-
-
   return (
-    <div className="max-w-4xl mx-auto">
-      {/* Single Unified View - No Layout Shifting */}
-      <div className="mobile-card">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-          {/* Form Section */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 mb-4">
-              <QrCode className="h-5 w-5 text-primary" />
-              <h2 className="text-lg font-semibold">Create QR Code</h2>
-            </div>
+    <div className="max-w-6xl mx-auto">
+      {/* Mobile-First Tabbed Interface - Improved Visibility */}
+      <div className="mobile-qr-container">
+        <Tabs defaultValue="create" className="w-full flex flex-col">
+          <TabsList className="mobile-tabs-list grid w-full grid-cols-3">
+            <TabsTrigger value="create" className="mobile-tab-trigger">
+              <QrCode className="h-4 w-4 mr-1 sm:mr-2" />
+              <span>Create</span>
+            </TabsTrigger>
+            <TabsTrigger value="customize" className="mobile-tab-trigger" disabled={!qrCode}>
+              <Palette className="h-4 w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Customize</span>
+              <span className="sm:hidden">Style</span>
+            </TabsTrigger>
+            <TabsTrigger value="download" className="mobile-tab-trigger" disabled={!qrCode}>
+              <Download className="h-4 w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Download</span>
+              <span className="sm:hidden">Get</span>
+            </TabsTrigger>
+          </TabsList>
 
-            <QRForm
-              onChange={handleFormChange}
-              formData={formData}
-              isPlaceholder={isPlaceholder}
-            />
-          </div>
+          {/* Create Tab - Form and QR Preview */}
+          <TabsContent value="create" className="mobile-tab-content mt-0">
+            <div className="mobile-card">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                {/* Form Section */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <QrCode className="h-5 w-5 text-primary" />
+                    <h2 className="text-lg font-semibold">Enter Details</h2>
+                  </div>
 
-          {/* QR Display Section - Always Visible */}
-          <div className="space-y-4">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
-                <div className="h-2 w-2 bg-primary rounded"></div>
+                  <QRForm
+                    onChange={handleFormChange}
+                    formData={formData}
+                    isPlaceholder={isPlaceholder}
+                  />
+                </div>
+
+                {/* QR Preview Section */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 bg-primary rounded"></div>
+                    </div>
+                    <h2 className="text-lg font-semibold">Preview</h2>
+                  </div>
+
+                  <QRDisplay
+                    qrCode={qrCode}
+                    upiString={upiString}
+                    formData={formData}
+                    options={qrOptions}
+                    onOptionsChange={handleOptionsChange}
+                    isGenerating={isGenerating}
+                    showActions={false}
+                    showCustomizer={false}
+                  />
+                </div>
               </div>
-              <h2 className="text-lg font-semibold">Your QR Code</h2>
             </div>
+          </TabsContent>
 
-            <QRDisplay
-              qrCode={qrCode}
-              upiString={upiString}
-              formData={formData}
-              options={qrOptions}
-              onOptionsChange={handleOptionsChange}
-              isGenerating={isGenerating}
-            />
-          </div>
-        </div>
+          {/* Customize Tab - QR Styling Options */}
+          <TabsContent value="customize" className="mobile-tab-content mt-0">
+            <div className="mobile-card">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                {/* Customization Controls */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Palette className="h-5 w-5 text-primary" />
+                    <h2 className="text-lg font-semibold">Customize Style</h2>
+                  </div>
+
+                  <QRCustomizer
+                    options={qrOptions}
+                    onChange={handleOptionsChange}
+                  />
+                </div>
+
+                {/* Live Preview */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
+                      <div className="h-2 w-2 bg-primary rounded"></div>
+                    </div>
+                    <h2 className="text-lg font-semibold">Live Preview</h2>
+                  </div>
+
+                  <QRDisplay
+                    qrCode={qrCode}
+                    upiString={upiString}
+                    formData={formData}
+                    options={qrOptions}
+                    onOptionsChange={handleOptionsChange}
+                    isGenerating={isGenerating}
+                    showActions={false}
+                    showCustomizer={false}
+                  />
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Download Tab - QR Code and Download Options */}
+          <TabsContent value="download" className="mobile-tab-content mt-0">
+            <div className="mobile-card">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+                {/* Final QR Code Display */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Download className="h-5 w-5 text-primary" />
+                    <h2 className="text-lg font-semibold">Your QR Code</h2>
+                  </div>
+
+                  <QRDisplay
+                    qrCode={qrCode}
+                    upiString={upiString}
+                    formData={formData}
+                    options={qrOptions}
+                    onOptionsChange={handleOptionsChange}
+                    isGenerating={isGenerating}
+                    showActions={true}
+                    showCustomizer={false}
+                  />
+                </div>
+
+                {/* Download Instructions */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="h-5 w-5 rounded bg-success/20 flex items-center justify-center">
+                      <div className="h-2 w-2 bg-success rounded"></div>
+                    </div>
+                    <h2 className="text-lg font-semibold">Ready to Use</h2>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="bg-muted/50 p-4 rounded-lg">
+                      <h3 className="font-medium mb-2">How to Use Your QR Code:</h3>
+                      <ul className="text-sm space-y-1 text-foreground-secondary">
+                        <li>• Download as PNG for digital use</li>
+                        <li>• Download as SVG for print materials</li>
+                        <li>• Share directly from your device</li>
+                        <li>• Copy the payment link to share manually</li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-card p-4 rounded-lg border">
+                      <h3 className="font-medium mb-2">Payment Details:</h3>
+                      <div className="text-sm space-y-1">
+                        <p><strong>Merchant:</strong> {formData.merchantName || 'Not specified'}</p>
+                        <p><strong>UPI ID:</strong> {formData.upiId || 'Not specified'}</p>
+                        {formData.amount && (
+                          <p><strong>Amount:</strong> ₹{formData.amount}</p>
+                        )}
+                        {formData.note && (
+                          <p><strong>Note:</strong> {formData.note}</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

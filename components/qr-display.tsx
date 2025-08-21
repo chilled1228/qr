@@ -17,6 +17,8 @@ interface QRDisplayProps {
   options: QROptions;
   onOptionsChange: (options: QROptions) => void;
   isGenerating: boolean;
+  showActions?: boolean;
+  showCustomizer?: boolean;
 }
 
 export function QRDisplay({
@@ -25,7 +27,9 @@ export function QRDisplay({
   formData,
   options,
   onOptionsChange,
-  isGenerating
+  isGenerating,
+  showActions = true,
+  showCustomizer = true
 }: QRDisplayProps) {
   const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -223,124 +227,135 @@ export function QRDisplay({
         </div>
       )}
 
-          <div className="space-y-2">
-            <p className="font-medium text-foreground text-sm sm:text-base">Payment Details:</p>
-            <div className="text-sm bg-muted p-3 rounded space-y-1">
-              <p><strong>Merchant:</strong> {formData.merchantName}</p>
-              <p><strong>UPI ID:</strong> {formData.upiId}</p>
-              {formData.amount && (
-                <p><strong>Amount:</strong> ₹{formData.amount}</p>
-              )}
-              {formData.note && (
-                <p><strong>Note:</strong> {formData.note}</p>
-              )}
-            </div>
-          </div>
-
-          <div className="space-y-3" role="group" aria-label="QR code actions">
-            {isGenerating ? (
-              // Skeleton loading state for buttons
-              <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                  <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-                  <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-                </div>
-                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-                {typeof navigator !== 'undefined' && 'share' in navigator && (
-                  <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-                )}
-              </div>
-            ) : (
-              <>
-                <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                  <Button
-                    onClick={() => downloadQR('png')}
-                    className="mobile-button w-full"
-                    variant="outline"
-                    aria-label="Download QR code as PNG image"
-                    disabled={!qrCode}
-                  >
-                    <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">PNG</span>
-                    <span className="sm:hidden">PNG</span>
-                  </Button>
-                  <Button
-                    onClick={() => downloadQR('svg')}
-                    className="mobile-button w-full"
-                    variant="outline"
-                    aria-label="Download QR code as SVG vector"
-                    disabled={!qrCode}
-                  >
-                    <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">SVG</span>
-                    <span className="sm:hidden">SVG</span>
-                  </Button>
-                </div>
-
-                <Button
-                  onClick={copyToClipboard}
-                  className="mobile-button w-full"
-                  variant="outline"
-                  aria-label={copied ? "Payment link copied to clipboard" : "Copy UPI payment link to clipboard"}
-                  disabled={!qrCode}
-                >
-                  {copied ? (
-                    <>
-                      <Check className="mr-2 h-4 w-4" aria-hidden="true" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="mr-2 h-4 w-4" aria-hidden="true" />
-                      <span className="hidden sm:inline">Copy Payment Link</span>
-                      <span className="sm:hidden">Copy Link</span>
-                    </>
-                  )}
-                </Button>
-
-                <Button
-                  onClick={downloadProfessionalCard}
-                  className="mobile-button w-full"
-                  variant="default"
-                  aria-label="Download professional QR card with company branding"
-                  disabled={!qrCode}
-                >
-                  <CreditCard className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="hidden sm:inline">Download Professional Card</span>
-                  <span className="sm:hidden">Pro Card</span>
-                </Button>
-
-                {typeof navigator !== 'undefined' && 'share' in navigator && (
-                  <Button
-                    onClick={shareQR}
-                    className="mobile-button w-full"
-                    variant="outline"
-                    aria-label="Share QR code using device share menu"
-                    disabled={!qrCode}
-                  >
-                    <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Share QR Code</span>
-                    <span className="sm:hidden">Share</span>
-                  </Button>
-                )}
-              </>
+      {/* Payment Details - Always shown */}
+      {(formData.merchantName || formData.upiId) && (
+        <div className="space-y-2">
+          <p className="font-medium text-foreground text-sm sm:text-base">Payment Details:</p>
+          <div className="text-sm bg-muted p-3 rounded space-y-1">
+            {formData.merchantName && <p><strong>Merchant:</strong> {formData.merchantName}</p>}
+            {formData.upiId && <p><strong>UPI ID:</strong> {formData.upiId}</p>}
+            {formData.amount && (
+              <p><strong>Amount:</strong> ₹{formData.amount}</p>
+            )}
+            {formData.note && (
+              <p><strong>Note:</strong> {formData.note}</p>
             )}
           </div>
+        </div>
+      )}
 
-          <div className="pt-4 border-t border-border">
-            <p className="text-xs sm:text-sm text-foreground-muted mb-2">UPI Payment Link:</p>
-            <code className="text-xs bg-muted p-2 sm:p-3 rounded block break-all font-mono">
-              {upiString}
-            </code>
-          </div>
+      {/* Action Buttons - Conditionally shown */}
+      {showActions && (
+        <div className="space-y-3" role="group" aria-label="QR code actions">
+          {isGenerating ? (
+            // Skeleton loading state for buttons
+            <div className="space-y-3">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
+                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
+              </div>
+              <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
+              {typeof navigator !== 'undefined' && 'share' in navigator && (
+                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
+              )}
+            </div>
+          ) : (
+            <>
+              <div className="grid grid-cols-2 gap-2 sm:gap-3">
+                <Button
+                  onClick={() => downloadQR('png')}
+                  className="mobile-button w-full"
+                  variant="outline"
+                  aria-label="Download QR code as PNG image"
+                  disabled={!qrCode}
+                >
+                  <Download className="mr-2 h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">PNG</span>
+                  <span className="sm:hidden">PNG</span>
+                </Button>
+                <Button
+                  onClick={() => downloadQR('svg')}
+                  className="mobile-button w-full"
+                  variant="outline"
+                  aria-label="Download QR code as SVG vector"
+                  disabled={!qrCode}
+                >
+                  <Download className="mr-2 h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">SVG</span>
+                  <span className="sm:hidden">SVG</span>
+                </Button>
+              </div>
 
-      {/* QR Customizer */}
-      <div className="pt-4 border-t border-border">
-        <QRCustomizer
-          options={options}
-          onChange={onOptionsChange}
-        />
-      </div>
+              <Button
+                onClick={copyToClipboard}
+                className="mobile-button w-full"
+                variant="outline"
+                aria-label={copied ? "Payment link copied to clipboard" : "Copy UPI payment link to clipboard"}
+                disabled={!qrCode}
+              >
+                {copied ? (
+                  <>
+                    <Check className="mr-2 h-4 w-4" aria-hidden="true" />
+                    <span>Copied!</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="mr-2 h-4 w-4" aria-hidden="true" />
+                    <span className="hidden sm:inline">Copy Payment Link</span>
+                    <span className="sm:hidden">Copy Link</span>
+                  </>
+                )}
+              </Button>
+
+              <Button
+                onClick={downloadProfessionalCard}
+                className="mobile-button w-full"
+                variant="default"
+                aria-label="Download professional QR card with company branding"
+                disabled={!qrCode}
+              >
+                <CreditCard className="mr-2 h-4 w-4" aria-hidden="true" />
+                <span className="hidden sm:inline">Download Professional Card</span>
+                <span className="sm:hidden">Pro Card</span>
+              </Button>
+
+              {typeof navigator !== 'undefined' && 'share' in navigator && (
+                <Button
+                  onClick={shareQR}
+                  className="mobile-button w-full"
+                  variant="outline"
+                  aria-label="Share QR code using device share menu"
+                  disabled={!qrCode}
+                >
+                  <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
+                  <span className="hidden sm:inline">Share QR Code</span>
+                  <span className="sm:hidden">Share</span>
+                </Button>
+              )}
+            </>
+          )}
+        </div>
+      )}
+
+      {/* UPI Payment Link - Conditionally shown */}
+      {showActions && (
+        <div className="pt-4 border-t border-border">
+          <p className="text-xs sm:text-sm text-foreground-muted mb-2">UPI Payment Link:</p>
+          <code className="text-xs bg-muted p-2 sm:p-3 rounded block break-all font-mono">
+            {upiString}
+          </code>
+        </div>
+      )}
+
+      {/* QR Customizer - Conditionally shown */}
+      {showCustomizer && (
+        <div className="pt-4 border-t border-border">
+          <QRCustomizer
+            options={options}
+            onChange={onOptionsChange}
+          />
+        </div>
+      )}
     </div>
   );
 }
