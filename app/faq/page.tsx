@@ -2,6 +2,7 @@ import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { NetworkStatus } from '@/components/network-status';
 import { PerformanceMonitor } from '@/components/performance-monitor';
+import { Breadcrumb } from '@/components/breadcrumb';
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { 
@@ -122,7 +123,8 @@ export default function FAQPage() {
 
       <div className="min-h-screen bg-background">
         <Header />
-        
+        <Breadcrumb />
+
         <main className="mobile-container mobile-section">
           {/* Hero Section */}
           <section className="text-center space-y-6 mb-16">

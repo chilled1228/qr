@@ -38,27 +38,42 @@ export default function Home() {
       <NetworkStatus />
       <PerformanceMonitor />
 
-      {/* Schema Markup */}
+      {/* WebSite Schema Markup */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
-            "@type": "SoftwareApplication",
-            "name": "UPI QR Code Generator",
+            "@type": "WebSite",
+            "name": "Free UPI QR Generator",
+            "alternateName": "freeupiqrgenerator.com",
             "url": "https://freeupiqrgenerator.com/",
-            "applicationCategory": "FinanceApplication",
-            "description": "Generate free UPI QR codes instantly to accept UPI payments online.",
-            "operatingSystem": "Web Browser",
-            "offers": {
-              "@type": "Offer",
-              "price": "0.00",
-              "priceCurrency": "INR"
+            "description": "The easiest way to create a free UPI QR code. Generate unlimited, high-resolution QR codes for payments instantly.",
+            "potentialAction": {
+              "@type": "SearchAction",
+              "target": {
+                "@type": "EntryPoint",
+                "urlTemplate": "https://freeupiqrgenerator.com/blog?q={search_term_string}"
+              },
+              "query-input": "required name=search_term_string"
             },
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "4.8",
-              "reviewCount": "1250"
+            "mainEntity": {
+              "@type": "SoftwareApplication",
+              "name": "UPI QR Code Generator",
+              "url": "https://freeupiqrgenerator.com/",
+              "applicationCategory": "FinanceApplication",
+              "description": "Generate free UPI QR codes instantly to accept UPI payments online.",
+              "operatingSystem": "Web Browser",
+              "offers": {
+                "@type": "Offer",
+                "price": "0.00",
+                "priceCurrency": "INR"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.8",
+                "reviewCount": "1250"
+              }
             }
           })
         }}

@@ -235,7 +235,7 @@ export function QRForm({ onChange, formData, isPlaceholder = false }: QRFormProp
             <div className="space-y-1">
               <p id="upiId-help" className="text-xs sm:text-sm text-foreground-muted flex items-start gap-2">
                 <Lock className="h-3 w-3 text-success flex-shrink-0 mt-0.5" />
-                <span>Secure: Enter your UPI ID (e.g., username@paytm) - not stored on our servers</span>
+                <span>Truly Free & Secure: Enter your UPI ID (e.g., username@paytm) - never stored, no sign-up required</span>
               </p>
               {errors.upiId && (
                 <p id="upiId-error" className="text-sm text-destructive font-medium" role="alert">

@@ -1,10 +1,9 @@
-'use client';
-
 import { QRGenerator } from '@/components/qr-generator';
 import { Header } from '@/components/header';
 import { Footer } from '@/components/footer';
 import { NetworkStatus } from '@/components/network-status';
 import { PerformanceMonitor } from '@/components/performance-monitor';
+import { Breadcrumb } from '@/components/breadcrumb';
 import { lazy, Suspense } from 'react';
 import { Metadata } from 'next';
 
@@ -104,7 +103,8 @@ export default function UPIQRGeneratorPage() {
 
       <div className="min-h-screen bg-background">
         <Header />
-        
+        <Breadcrumb />
+
         <main className="mobile-container mobile-section" id="main-content">
           {/* Hero Section */}
           <section className="text-center space-y-6 mb-12">

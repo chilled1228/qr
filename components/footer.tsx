@@ -28,7 +28,7 @@ export function Footer() {
             <ul className="space-y-3 text-sm text-foreground-secondary">
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-                <span>Free UPI QR code generation</span>
+                <span>Truly free - no ads, no sign-ups, no limits</span>
               </li>
               <li className="flex items-start gap-2">
                 <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0"></div>
