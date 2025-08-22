@@ -8,16 +8,18 @@ interface ProfessionalQRCardProps {
   merchantName: string;
   upiId: string;
   className?: string;
+  qrSize?: number; // displayed QR size in px
 }
 
 export const ProfessionalQRCard = forwardRef<HTMLDivElement, ProfessionalQRCardProps>(
-  ({ qrCode, merchantName, upiId, className }, ref) => {
+  ({ qrCode, merchantName, upiId, className, qrSize }, ref) => {
+    const displaySize = Math.max(96, Math.min(320, qrSize || 144));
     return (
       <div 
         ref={ref}
         className={cn(
-          "bg-white p-8 rounded-lg shadow-xl border border-gray-200 max-w-sm mx-auto",
-          "font-sans text-center space-y-6 relative",
+          "bg-white p-5 rounded-xl border border-gray-200 max-w-sm mx-auto",
+          "font-sans text-center space-y-4 relative",
           className
         )}
         style={{
@@ -26,69 +28,70 @@ export const ProfessionalQRCard = forwardRef<HTMLDivElement, ProfessionalQRCardP
       >
         {/* Merchant Name */}
         <div className="space-y-2">
-          <h2 className="text-2xl font-bold text-gray-800 uppercase tracking-wider leading-tight">
+          <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wide leading-snug">
             {merchantName || 'MERCHANT NAME'}
           </h2>
         </div>
 
         {/* QR Code */}
         <div className="flex justify-center">
-          <div className="bg-white p-6 rounded-lg border-2 border-gray-100 shadow-sm">
+          <div className="bg-white p-3 rounded-xl border border-gray-200">
             <img
               src={qrCode}
               alt={`UPI QR Code for ${merchantName}`}
-              className="w-44 h-44 object-contain"
+              className="object-contain"
+              style={{ width: displaySize, height: displaySize }}
             />
           </div>
         </div>
 
         {/* UPI ID */}
         <div className="space-y-1">
-          <p className="text-gray-600 text-sm font-medium">
+          <span className="inline-flex items-center px-3 py-1 rounded-full bg-gray-50 text-gray-700 text-xs font-medium border border-gray-200">
             {upiId || 'merchant@upi'}
-          </p>
+          </span>
         </div>
 
         {/* Instructions */}
-        <div className="space-y-2">
-          <p className="text-gray-700 text-sm font-medium">
+        <div className="space-y-1">
+          <p className="text-gray-600 text-sm font-medium">
             Scan and pay with any BHIM UPI app
           </p>
         </div>
 
         {/* BHIM UPI Logos */}
-        <div className="flex justify-center items-center space-x-6 py-3">
+        <div className="flex justify-center items-center space-x-4 py-2">
           <img
             src="/logos/bhim-upi.svg"
             alt="BHIM UPI"
-            className="h-8 object-contain"
+            className="h-6 object-contain opacity-80"
           />
           <img
             src="/logos/upi.svg"
             alt="UPI"
-            className="h-8 object-contain"
+            className="h-6 object-contain opacity-80"
           />
         </div>
 
         {/* Payment App Logos */}
-        <div className="flex justify-center items-center space-x-6 py-3 border-t border-gray-100">
+        <div className="flex justify-center items-center space-x-4 py-2 border-t border-gray-100">
           {/* Google Pay */}
           <img
             src="/logos/google-pay.svg"
             alt="Google Pay"
-            className="h-6 object-contain"
+            className="h-5 object-contain opacity-80"
           />
 
           {/* Paytm */}
           <img
             src="/logos/paytm.svg"
             alt="Paytm"
-            className="h-6 object-contain"
+            className="h-5 object-contain opacity-80"
           />
         </div>
 
         {/* Footer */}
-        <div className="pt-2 border-t border-gray-100">
+        <div className="pt-1 border-t border-gray-100">
           <p className="text-xs text-gray-500">
             Secure UPI payments powered by{' '}
             <span className="font-medium">UPI QR Generator</span>

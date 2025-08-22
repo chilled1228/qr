@@ -1,13 +1,11 @@
 'use client';
 
 import { useState, useRef } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Slider } from '@/components/ui/slider';
-import { Upload, X, Palette } from 'lucide-react';
-import { toast } from 'sonner';
+import { Upload, X } from 'lucide-react';
 import type { QROptions } from '@/types/qr-types';
 
 // Utility function to calculate contrast ratio
@@ -63,24 +61,13 @@ interface QRCustomizerProps {
 }
 
 export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
-  const [showColorPicker, setShowColorPicker] = useState<'fg' | 'bg' | null>(null);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleColorChange = (type: 'fgColor' | 'bgColor', color: string) => {
     const newOptions = { ...options, [type]: color };
     const fgColor = type === 'fgColor' ? color : options.fgColor;
     const bgColor = type === 'bgColor' ? color : options.bgColor;
-
-    // Validate contrast ratio (minimum 3:1 for QR codes)
-    const contrastRatio = getContrastRatio(fgColor, bgColor);
-    if (contrastRatio < 3) {
-      toast.error(`Low contrast ratio (${contrastRatio.toFixed(1)}:1). Minimum 3:1 required for reliable scanning.`);
-    }
-
-    // Check colorblind accessibility
-    if (!isColorBlindFriendly(fgColor, bgColor)) {
-      toast.warning('Red-green color combinations may be difficult for colorblind users to distinguish.');
-    }
 
     onChange(newOptions);
   };
@@ -93,21 +80,14 @@ export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
     const file = event.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith('image/')) {
-      toast.error('Please select an image file');
-      return;
-    }
+    if (!file.type.startsWith('image/')) return;
 
-    if (file.size > 1024 * 1024) {
-      toast.error('Image size should be less than 1MB');
-      return;
-    }
+    if (file.size > 1024 * 1024) return;
 
     const reader = new FileReader();
     reader.onload = (e) => {
       const result = e.target?.result as string;
       onChange({ ...options, logo: result });
-      toast.success('Logo uploaded successfully');
     };
     reader.readAsDataURL(file);
   };
@@ -117,152 +97,155 @@ export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-    toast.success('Logo removed');
+  };
+
+  const resetOptions = () => {
+    onChange({ size: 512, fgColor: '#000000', bgColor: '#ffffff', logo: null });
   };
 
   const colorPresets = [
-    { name: 'Brand Black & White', fg: '#000000', bg: '#ffffff' },
-    { name: 'Brand Light Green', fg: '#000000', bg: '#CFFFE2' },
-    { name: 'Brand Medium Green', fg: '#000000', bg: '#A2D5C6' },
-    { name: 'Brand Light Gray', fg: '#000000', bg: '#F6F6F6' },
-    { name: 'Inverse (White on Black)', fg: '#ffffff', bg: '#000000' },
-    { name: 'Green on Gray', fg: '#A2D5C6', bg: '#F6F6F6' },
+    { name: 'Black & White', fg: '#000000', bg: '#ffffff' },
+    { name: 'Light Green', fg: '#000000', bg: '#CFFFE2' },
+    { name: 'Medium Green', fg: '#000000', bg: '#A2D5C6' },
+    { name: 'Light Gray', fg: '#000000', bg: '#F6F6F6' },
+    { name: 'Inverse', fg: '#ffffff', bg: '#000000' },
+    { name: 'Green on Gray', fg: '#0f766e', bg: '#ecfeff' },
   ];
 
   return (
-    <div className="space-y-4">
-      <div className="space-y-4">
-        {/* Size Control */}
-        <div>
-          <Label>Size: {options.size}px</Label>
-          <div className="mt-2">
-            <Slider
-              value={[options.size]}
-              onValueChange={handleSizeChange}
-              min={256}
-              max={1024}
-              step={32}
-              className="w-full"
+    <div className="space-y-6">
+      {/* Header actions */}
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold">Basic</h3>
+        <Button onClick={resetOptions} variant="ghost" size="sm" className="h-8 px-2">
+          Reset
+        </Button>
+      </div>
+
+      {/* Basic: Size */}
+      <div className="space-y-2">
+        <Label>Size: {options.size}px</Label>
+        <Slider
+          value={[options.size]}
+          onValueChange={handleSizeChange}
+          min={256}
+          max={1024}
+          step={32}
+          className="w-full"
+        />
+        <p className="text-xs text-foreground-muted">Tip: Larger size improves print quality.</p>
+      </div>
+
+      {/* Basic: Presets */}
+      <div className="space-y-2">
+        <Label>Color presets</Label>
+        <div className="grid grid-cols-6 gap-2">
+          {colorPresets.map((preset) => (
+            <button
+              key={preset.name}
+              type="button"
+              aria-label={preset.name}
+              onClick={() => onChange({ ...options, fgColor: preset.fg, bgColor: preset.bg })}
+              className="h-8 w-full rounded border"
+              style={{
+                background: `linear-gradient(90deg, ${preset.fg} 0 50%, ${preset.bg} 50% 100%)`
+              }}
             />
-          </div>
+          ))}
         </div>
+      </div>
 
-        {/* Color Presets */}
-        <div>
-          <Label>Color Presets</Label>
-          <div className="grid grid-cols-1 gap-2 mt-2">
-            {colorPresets.map((preset) => (
-              <Button
-                key={preset.name}
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  onChange({ ...options, fgColor: preset.fg, bgColor: preset.bg });
-                  toast.success(`Applied ${preset.name} theme`);
-                }}
-                className="justify-start"
-              >
-                <div className="flex items-center gap-3">
-                  <div className="flex">
-                    <div 
-                      className="w-4 h-4 border rounded-l" 
-                      style={{ backgroundColor: preset.fg }}
-                    />
-                    <div 
-                      className="w-4 h-4 border rounded-r" 
-                      style={{ backgroundColor: preset.bg }}
-                    />
-                  </div>
-                  {preset.name}
-                </div>
-              </Button>
-            ))}
-          </div>
-        </div>
-
-        {/* Custom Colors */}
-        <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label>Foreground Color</Label>
-              <div className="flex items-center gap-2 mt-2">
-                <Input
-                  type="color"
-                  value={options.fgColor}
-                  onChange={(e) => handleColorChange('fgColor', e.target.value)}
-                  className="w-12 h-10 p-1 border rounded"
-                />
-                <Input
-                  type="text"
-                  value={options.fgColor}
-                  onChange={(e) => handleColorChange('fgColor', e.target.value)}
-                  className="font-mono text-sm"
-                  placeholder="#000000"
-                />
-              </div>
-            </div>
-
-            <div>
-              <Label>Background Color</Label>
-              <div className="flex items-center gap-2 mt-2">
-                <Input
-                  type="color"
-                  value={options.bgColor}
-                  onChange={(e) => handleColorChange('bgColor', e.target.value)}
-                  className="w-12 h-10 p-1 border rounded"
-                />
-                <Input
-                  type="text"
-                  value={options.bgColor}
-                  onChange={(e) => handleColorChange('bgColor', e.target.value)}
-                  className="font-mono text-sm"
-                  placeholder="#ffffff"
-                />
-              </div>
+      {/* Basic: Custom colors */}
+      <div className="space-y-4">
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label>Foreground</Label>
+            <div className="flex items-center gap-2 mt-2">
+              <Input
+                type="color"
+                value={options.fgColor}
+                onChange={(e) => handleColorChange('fgColor', e.target.value)}
+                className="w-12 h-10 p-1 border rounded"
+              />
+              <Input
+                type="text"
+                value={options.fgColor}
+                onChange={(e) => handleColorChange('fgColor', e.target.value)}
+                className="font-mono text-sm"
+                placeholder="#000000"
+              />
             </div>
           </div>
 
-          {/* Contrast Ratio Indicator */}
-          <div className="p-3 bg-muted rounded-lg">
-            <div className="flex items-center justify-between">
-              <span className="text-sm font-medium">Contrast Ratio:</span>
-              <span className={`text-sm font-mono ${
-                getContrastRatio(options.fgColor, options.bgColor) >= 3
-                  ? 'text-success'
-                  : 'text-destructive'
-              }`}>
-                {getContrastRatio(options.fgColor, options.bgColor).toFixed(1)}:1
-              </span>
-            </div>
-            <div className="text-xs text-foreground-muted mt-1">
-              {getContrastRatio(options.fgColor, options.bgColor) >= 3
-                ? '✓ Good contrast for reliable scanning'
-                : '⚠ Low contrast - may affect scanning reliability'}
+          <div>
+            <Label>Background</Label>
+            <div className="flex items-center gap-2 mt-2">
+              <Input
+                type="color"
+                value={options.bgColor}
+                onChange={(e) => handleColorChange('bgColor', e.target.value)}
+                className="w-12 h-10 p-1 border rounded"
+              />
+              <Input
+                type="text"
+                value={options.bgColor}
+                onChange={(e) => handleColorChange('bgColor', e.target.value)}
+                className="font-mono text-sm"
+                placeholder="#ffffff"
+              />
             </div>
           </div>
         </div>
 
-        {/* Logo Upload */}
-        <div>
-          <Label>Brand Logo (Optional)</Label>
-          <div className="mt-2">
+        {/* Inline guidance */}
+        <div className="p-3 bg-muted rounded-lg">
+          <div className="flex items-center justify-between">
+            <span className="text-sm font-medium">Contrast Ratio</span>
+            <span className={`text-sm font-mono ${
+              getContrastRatio(options.fgColor, options.bgColor) >= 3
+                ? 'text-success'
+                : 'text-destructive'
+            }`}>
+              {getContrastRatio(options.fgColor, options.bgColor).toFixed(1)}:1
+            </span>
+          </div>
+          <div className="text-xs text-foreground-muted mt-1">
+            {getContrastRatio(options.fgColor, options.bgColor) >= 3
+              ? 'Good for scanning.'
+              : 'Low contrast may affect scanning. Try darker foreground on lighter background.'}
+          </div>
+        </div>
+      </div>
+
+      {/* Advanced toggle */}
+      <div className="pt-2 border-t">
+        <button
+          type="button"
+          onClick={() => setShowAdvanced(v => !v)}
+          className="text-sm font-semibold w-full text-left"
+          aria-expanded={showAdvanced}
+        >
+          Advanced (Logo)
+        </button>
+      </div>
+
+      {showAdvanced && (
+        <div className="space-y-2">
+          <Label>Brand Logo (optional)</Label>
+          <div>
             {options.logo ? (
-              <div className="space-y-3">
-                <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
-                  <div className="flex items-center gap-3">
-                    <img
-                      src={options.logo}
-                      alt="Logo preview"
-                      className="w-10 h-10 object-contain rounded"
-                    />
-                    <span className="text-sm text-foreground-secondary">
-                      Logo uploaded
-                    </span>
-                  </div>
-                  <Button onClick={removeLogo} size="sm" variant="ghost">
-                    <X className="h-4 w-4" />
-                  </Button>
+              <div className="flex items-center justify-between p-3 bg-muted rounded-lg">
+                <div className="flex items-center gap-3">
+                  <img
+                    src={options.logo}
+                    alt="Logo preview"
+                    className="w-10 h-10 object-contain rounded"
+                  />
+                  <span className="text-sm text-foreground-secondary">Logo added</span>
                 </div>
+                <Button onClick={removeLogo} size="sm" variant="ghost">
+                  <X className="h-4 w-4" />
+                </Button>
               </div>
             ) : (
               <div>
@@ -274,9 +257,7 @@ export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
                   <Upload className="mr-2 h-4 w-4" />
                   Upload Logo
                 </Button>
-                <p className="text-xs text-foreground-muted mt-1">
-                  Recommended: Square image, max 1MB
-                </p>
+                <p className="text-xs text-foreground-muted mt-1">Square image, under 1MB recommended.</p>
               </div>
             )}
             <input
@@ -288,7 +269,7 @@ export function QRCustomizer({ options, onChange }: QRCustomizerProps) {
             />
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

@@ -4,6 +4,8 @@ import { useState, useRef, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { QRCustomizer } from './qr-customizer';
+import { Slider } from '@/components/ui/slider';
+import { Label } from '@/components/ui/label';
 import { ProfessionalQRCard } from './professional-qr-card';
 import { downloadProfessionalQRCard } from '@/lib/professional-qr-generator';
 import { Download, Copy, Check, Share2, Loader2, CreditCard } from 'lucide-react';
@@ -19,6 +21,7 @@ interface QRDisplayProps {
   isGenerating: boolean;
   showActions?: boolean;
   showCustomizer?: boolean;
+  showPaymentDetails?: boolean;
 }
 
 export function QRDisplay({
@@ -29,7 +32,8 @@ export function QRDisplay({
   onOptionsChange,
   isGenerating,
   showActions = true,
-  showCustomizer = true
+  showCustomizer = true,
+  showPaymentDetails = true
 }: QRDisplayProps) {
   const [copied, setCopied] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -193,6 +197,10 @@ export function QRDisplay({
     }
   }, [qrCode, downloadQR, copyToClipboard]);
 
+  const handleInlineSizeChange = useCallback((size: number[]) => {
+    onOptionsChange({ ...options, size: size[0] });
+  }, [onOptionsChange, options]);
+
   if (!qrCode) {
     return (
       <div>
@@ -217,6 +225,7 @@ export function QRDisplay({
             qrCode={qrCode}
             merchantName={formData.merchantName || 'MERCHANT NAME'}
             upiId={formData.upiId || 'merchant@upi'}
+            qrSize={options.size ? Math.max(96, Math.min(320, options.size / 2)) : 144}
           />
         </div>
       ) : (
@@ -227,8 +236,8 @@ export function QRDisplay({
         </div>
       )}
 
-      {/* Payment Details - Always shown */}
-      {(formData.merchantName || formData.upiId) && (
+      {/* Payment Details - Conditionally shown */}
+      {showPaymentDetails && (formData.merchantName || formData.upiId) && (
         <div className="space-y-2">
           <p className="font-medium text-foreground text-sm sm:text-base">Payment Details:</p>
           <div className="text-sm bg-muted p-3 rounded space-y-1">
@@ -344,6 +353,24 @@ export function QRDisplay({
           <code className="text-xs bg-muted p-2 sm:p-3 rounded block break-all font-mono">
             {upiString}
           </code>
+        </div>
+      )}
+
+      {/* Inline Size Slider when customizer is hidden */}
+      {!showCustomizer && (
+        <div className="pt-4 border-t border-border">
+          <div className="space-y-2">
+            <Label htmlFor="qr-size-inline" className="text-sm font-medium">Size: {options.size}px</Label>
+            <Slider
+              id="qr-size-inline"
+              value={[options.size]}
+              onValueChange={handleInlineSizeChange}
+              min={256}
+              max={1024}
+              step={32}
+              className="w-full"
+            />
+          </div>
         </div>
       )}
 

@@ -109,6 +109,7 @@ export function QRGenerator() {
                     isGenerating={isGenerating}
                     showActions={false}
                     showCustomizer={false}
+                    showPaymentDetails={false}
                   />
                 </div>
               </div>
@@ -150,6 +151,7 @@ export function QRGenerator() {
                     isGenerating={isGenerating}
                     showActions={false}
                     showCustomizer={false}
+                    showPaymentDetails={false}
                   />
                 </div>
               </div>
@@ -176,6 +178,7 @@ export function QRGenerator() {
                     isGenerating={isGenerating}
                     showActions={true}
                     showCustomizer={false}
+                    showPaymentDetails={true}
                   />
                 </div>
 

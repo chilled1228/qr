@@ -232,17 +232,11 @@ export function QRForm({ onChange, formData, isPlaceholder = false }: QRFormProp
               autoComplete="username"
               inputMode="email"
             />
-            <div className="space-y-1">
-              <p id="upiId-help" className="text-xs sm:text-sm text-foreground-muted flex items-start gap-2">
-                <Lock className="h-3 w-3 text-success flex-shrink-0 mt-0.5" />
-                <span>Truly Free & Secure: Enter your UPI ID (e.g., username@paytm) - never stored, no sign-up required</span>
+            {errors.upiId && (
+              <p id="upiId-error" className="text-sm text-destructive font-medium" role="alert">
+                {errors.upiId}
               </p>
-              {errors.upiId && (
-                <p id="upiId-error" className="text-sm text-destructive font-medium" role="alert">
-                  {errors.upiId}
-                </p>
-              )}
-            </div>
+            )}
           </div>
 
           {/* Merchant Name Field */}
@@ -269,22 +263,17 @@ export function QRForm({ onChange, formData, isPlaceholder = false }: QRFormProp
               tabIndex={2}
               autoComplete="organization"
             />
-            <div className="space-y-1">
-              <p id="merchantName-help" className="text-xs sm:text-sm text-foreground-muted">
-                Your business or personal name for the payment
+            {errors.merchantName && (
+              <p id="merchantName-error" className="text-sm text-destructive font-medium" role="alert">
+                {errors.merchantName}
               </p>
-              {errors.merchantName && (
-                <p id="merchantName-error" className="text-sm text-destructive font-medium" role="alert">
-                  {errors.merchantName}
-                </p>
-              )}
-            </div>
+            )}
           </div>
 
-          {/* Amount Field */}
+          {/* Amount Field - important (always visible) */}
           <div className="space-y-2">
             <Label htmlFor="amount" className="text-sm sm:text-base font-medium">
-              Amount (₹) - Optional
+              Amount (₹)
             </Label>
             <Input
               id="amount"
@@ -301,54 +290,65 @@ export function QRForm({ onChange, formData, isPlaceholder = false }: QRFormProp
                   ? 'border-destructive focus:border-destructive ring-destructive/20'
                   : 'focus:border-primary focus:ring-primary/20'
               )}
-              aria-describedby={errors.amount ? 'amount-error' : 'amount-help'}
+              aria-describedby={errors.amount ? 'amount-error' : undefined}
               aria-invalid={!!errors.amount}
               tabIndex={3}
               inputMode="decimal"
             />
-            <div className="space-y-1">
-              <p id="amount-help" className="text-xs sm:text-sm text-foreground-muted">
-                Leave empty for flexible amount payments
+            {errors.amount && (
+              <p id="amount-error" className="text-sm text-destructive font-medium" role="alert">
+                {errors.amount}
               </p>
-              {errors.amount && (
-                <p id="amount-error" className="text-sm text-destructive font-medium" role="alert">
-                  {errors.amount}
-                </p>
-              )}
-            </div>
+            )}
           </div>
 
-          {/* Note Field */}
-          <div className="space-y-2">
-            <Label htmlFor="note" className="text-sm sm:text-base font-medium">
-              Transaction Note - Optional
-            </Label>
-            <Textarea
-              id="note"
-              placeholder="Payment for services"
-              value={formData.note}
-              onChange={(e) => handleInputChange('note', e.target.value)}
-              onBlur={() => handleInputBlur('note')}
-              className={cn(
-                "resize-none min-h-[80px] sm:min-h-[72px]",
-                errors.note
-                  ? 'border-destructive focus:border-destructive ring-destructive/20'
-                  : 'focus:border-primary focus:ring-primary/20'
+          {/* Optional Fields - collapsed to reduce visual bulk */}
+          <details className="rounded border bg-card/50 p-3">
+            <summary className="cursor-pointer text-sm font-medium">Optional fields</summary>
+            <div className="mt-3 space-y-4">
+              {/* Note Field */}
+              <div className="space-y-2">
+                <Label htmlFor="note" className="text-sm sm:text-base font-medium">
+                  Transaction Note
+                </Label>
+                <Textarea
+                  id="note"
+                  placeholder="Payment for services"
+                  value={formData.note}
+                  onChange={(e) => handleInputChange('note', e.target.value)}
+                  onBlur={() => handleInputBlur('note')}
+                  className={cn(
+                    "resize-none min-h-[72px]",
+                    errors.note
+                      ? 'border-destructive focus:border-destructive ring-destructive/20'
+                      : 'focus:border-primary focus:ring-primary/20'
+                  )}
+                  rows={3}
+                  maxLength={100}
+                  aria-describedby={errors.note ? 'note-error' : 'note-help'}
+                  aria-invalid={!!errors.note}
+                  tabIndex={4}
+                />
+                {errors.note && (
+                  <p id="note-error" className="text-sm text-destructive font-medium" role="alert">
+                    {errors.note}
+                  </p>
+                )}
+              </div>
+            </div>
+          </details>
+
+          {/* Payment Details summary at bottom */}
+          <div className="mt-4 pt-4 border-t">
+            <p className="font-medium text-foreground text-sm sm:text-base mb-2">Payment Details:</p>
+            <div className="text-sm bg-muted p-3 rounded space-y-1">
+              {formData.merchantName && <p><strong>Merchant:</strong> {formData.merchantName}</p>}
+              {formData.upiId && <p><strong>UPI ID:</strong> {formData.upiId}</p>}
+              {formData.amount && (
+                <p><strong>Amount:</strong> ₹{formData.amount}</p>
               )}
-              rows={3}
-              maxLength={100}
-              aria-describedby={errors.note ? 'note-error' : 'note-help'}
-              aria-invalid={!!errors.note}
-              tabIndex={4}
-            />
-            <div className="space-y-1">
-              <p id="note-help" className="text-xs sm:text-sm text-foreground-muted">
-                Brief description of the payment (max 100 characters)
-              </p>
-              {errors.note && (
-                <p id="note-error" className="text-sm text-destructive font-medium" role="alert">
-                  {errors.note}
-                </p>
+              {formData.note && (
+                <p><strong>Note:</strong> {formData.note}</p>
               )}
             </div>
           </div>
