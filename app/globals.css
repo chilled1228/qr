@@ -667,7 +667,7 @@
 /* Mobile tab content areas - Allow scrolling when needed */
 .mobile-tab-content {
   @apply flex-1;
-  min-height: 400px; /* Ensure minimum content area */
+  min-height: 0; /* Let content define height */
   overflow-y: auto; /* Allow scrolling if content is too tall */
   -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
 }
@@ -720,7 +720,7 @@
   }
 
   .mobile-tab-content {
-    min-height: 350px; /* Smaller content area on mobile */
+    min-height: 0;
   }
 
   .mobile-tabs-list {
@@ -744,7 +744,7 @@
   }
 
   .mobile-tab-content {
-    min-height: 450px;
+    min-height: 0;
   }
 }
 
@@ -754,14 +754,14 @@
   }
 
   .mobile-tab-content {
-    min-height: 550px;
+    min-height: 0;
   }
 }
 
 /* ===== TAB CONTENT VISIBILITY IMPROVEMENTS ===== */
 /* Ensure all content is properly visible */
 .mobile-tab-content .mobile-card {
-  @apply p-4 sm:p-6;
+  @apply p-3 sm:p-4; /* tighter padding inside tabs */
   min-height: auto;
 }
 
