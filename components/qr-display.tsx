@@ -222,18 +222,8 @@ export function QRDisplay({
       {/* Professional QR Code Display with Creative Floating Action Panel */}
       {qrCode ? (
         <div className="relative">
-          {/* Main QR Card - Full Size, Centered */}
-          <div className="flex justify-center">
-            <ProfessionalQRCard
-              qrCode={qrCode}
-              merchantName={(formData.merchantName && formData.merchantName.trim()) ? formData.merchantName.trim() : 'MERCHANT NAME'}
-              upiId={(formData.upiId && formData.upiId.trim()) ? formData.upiId.trim() : 'merchant@upi'}
-              qrSize={options.size ? Math.max(96, Math.min(320, options.size / 2)) : 144}
-            />
-          </div>
-          
-          {/* Expandable Download Panel */}
-          <div className="mt-6 lg:absolute lg:top-0 lg:right-0 lg:mt-0">
+          {/* Expandable Download Panel - Mobile: Top, Desktop: Right */}
+          <div className="mb-4 lg:mb-0 lg:absolute lg:top-0 lg:right-0">
             {/* Compact Action Panel */}
             <div className="bg-gradient-to-br from-background via-background to-muted/30 rounded-xl border border-border/50 shadow-lg backdrop-blur-sm overflow-hidden">
               {/* Header - Always Visible */}
@@ -346,6 +336,16 @@ export function QRDisplay({
                 </div>
               )}
             </div>
+          </div>
+          
+          {/* Main QR Card - Full Size, Centered */}
+          <div className="flex justify-center">
+            <ProfessionalQRCard
+              qrCode={qrCode}
+              merchantName={(formData.merchantName && formData.merchantName.trim()) ? formData.merchantName.trim() : 'MERCHANT NAME'}
+              upiId={(formData.upiId && formData.upiId.trim()) ? formData.upiId.trim() : 'merchant@upi'}
+              qrSize={options.size ? Math.max(96, Math.min(320, options.size / 2)) : 144}
+            />
           </div>
         </div>
       ) : (

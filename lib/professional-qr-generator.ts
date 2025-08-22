@@ -30,7 +30,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   container.style.position = 'absolute';
   container.style.left = '-9999px';
   container.style.top = '-9999px';
-  container.style.width = '400px';
+  container.style.width = '450px';
+  container.style.height = 'auto';
   document.body.appendChild(container);
 
   // Create the professional QR card HTML
@@ -41,7 +42,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       border-radius: 8px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       border: 1px solid #e5e7eb;
-      max-width: 384px;
+      width: 100%;
+      max-width: 420px;
       margin: 0 auto;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       text-align: center;
@@ -175,14 +177,28 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   `;
 
   try {
+    // Wait for images to load before capturing
+    const images = container.querySelectorAll('img');
+    await Promise.all(Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve, reject) => {
+        img.onload = resolve;
+        img.onerror = reject;
+        // Fallback for external images that might fail
+        setTimeout(resolve, 1000);
+      });
+    }));
+
     // Generate the image using html2canvas
     const canvas = await html2canvas(container, {
       scale: scale,
       backgroundColor: '#f8fafc',
       useCORS: true,
       allowTaint: true,
-      width: 400,
-      height: 600,
+      width: 450,
+      height: 700, // Increased height to ensure logos aren't cut off
+      scrollX: 0,
+      scrollY: 0,
     });
 
     // Clean up
