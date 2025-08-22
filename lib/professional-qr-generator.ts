@@ -31,7 +31,6 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   container.style.left = '-9999px';
   container.style.top = '-9999px';
   container.style.width = '450px';
-  container.style.height = 'auto';
   document.body.appendChild(container);
 
   // Create the professional QR card HTML
@@ -42,7 +41,6 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       border-radius: 8px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       border: 1px solid #e5e7eb;
-      width: 100%;
       max-width: 420px;
       margin: 0 auto;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -143,7 +141,7 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
         gap: 24px;
         padding: 12px 0;
         border-top: 1px solid #f3f4f6;
-        margin-bottom: 16px;
+        margin-bottom: 24px;
       ">
         <!-- Google Pay -->
         <img
@@ -189,6 +187,10 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       });
     }));
 
+    // Get the actual height of the content
+    const contentElement = container.firstElementChild as HTMLElement;
+    const actualHeight = contentElement ? contentElement.offsetHeight + 100 : 700; // Add 100px buffer
+
     // Generate the image using html2canvas
     const canvas = await html2canvas(container, {
       scale: scale,
@@ -196,7 +198,7 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       useCORS: true,
       allowTaint: true,
       width: 450,
-      height: 700, // Increased height to ensure logos aren't cut off
+      height: Math.max(700, actualHeight), // Ensure minimum height of 700px
       scrollX: 0,
       scrollY: 0,
     });
