@@ -10,6 +10,49 @@ export interface ProfessionalQROptions {
 }
 
 /**
+ * Convert SVG to PNG data URL using canvas
+ */
+async function svgToPngDataUrl(svgUrl: string, width: number, height: number): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) {
+        resolve('');
+        return;
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      
+      // Fill with transparent background
+      ctx.clearRect(0, 0, width, height);
+      
+      // Draw the SVG
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      // Convert to PNG data URL
+      resolve(canvas.toDataURL('image/png'));
+    };
+    
+    img.onerror = () => {
+      console.warn(`Failed to load SVG: ${svgUrl}`);
+      resolve('');
+    };
+    
+    // Set timeout fallback
+    setTimeout(() => {
+      resolve('');
+    }, 5000);
+    
+    img.src = svgUrl;
+  });
+}
+
+/**
  * Generate a professional QR card image that matches industry standards
  */
 export async function generateProfessionalQRCard(options: ProfessionalQROptions): Promise<string> {
@@ -28,15 +71,24 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   // Get base URL for absolute paths
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
 
+  // Pre-convert all SVG logos to PNG data URLs for maximum compatibility
+  const [bhimUpiPng, upiPng, googlePayPng, paytmPng] = await Promise.all([
+    svgToPngDataUrl(`${baseUrl}/logos/bhim-upi.svg`, 64, 32),
+    svgToPngDataUrl(`${baseUrl}/logos/upi.svg`, 64, 32),
+    svgToPngDataUrl(`${baseUrl}/logos/google-pay.svg`, 48, 24),
+    svgToPngDataUrl(`${baseUrl}/logos/paytm.svg`, 48, 24)
+  ]);
+
   // Create a temporary container
   const container = document.createElement('div');
   container.style.position = 'absolute';
   container.style.left = '-9999px';
   container.style.top = '-9999px';
   container.style.width = '450px';
+  container.style.height = 'auto';
   document.body.appendChild(container);
 
-  // Create the professional QR card HTML
+  // Create the professional QR card HTML with PNG logos
   container.innerHTML = `
     <div style="
       background: white;
@@ -44,6 +96,7 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       border-radius: 8px;
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       border: 1px solid #e5e7eb;
+      width: 100%;
       max-width: 420px;
       margin: 0 auto;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -124,16 +177,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
         padding: 12px 0;
         margin-bottom: 16px;
       ">
-        <img
-          src="${baseUrl}/logos/bhim-upi.svg"
-          alt="BHIM UPI"
-          style="height: 32px; object-fit: contain;"
-        />
-        <img
-          src="${baseUrl}/logos/upi.svg"
-          alt="UPI"
-          style="height: 32px; object-fit: contain;"
-        />
+        ${bhimUpiPng ? `<img src="${bhimUpiPng}" alt="BHIM UPI" style="height: 32px; object-fit: contain;" />` : ''}
+        ${upiPng ? `<img src="${upiPng}" alt="UPI" style="height: 32px; object-fit: contain;" />` : ''}
       </div>
 
       <!-- Payment App Logos -->
@@ -146,19 +191,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
         border-top: 1px solid #f3f4f6;
         margin-bottom: 24px;
       ">
-        <!-- Google Pay -->
-        <img
-          src="${baseUrl}/logos/google-pay.svg"
-          alt="Google Pay"
-          style="height: 24px; object-fit: contain;"
-        />
-
-        <!-- Paytm -->
-        <img
-          src="${baseUrl}/logos/paytm.svg"
-          alt="Paytm"
-          style="height: 24px; object-fit: contain;"
-        />
+        ${googlePayPng ? `<img src="${googlePayPng}" alt="Google Pay" style="height: 24px; object-fit: contain;" />` : ''}
+        ${paytmPng ? `<img src="${paytmPng}" alt="Paytm" style="height: 24px; object-fit: contain;" />` : ''}
       </div>
 
       <!-- Footer -->
@@ -178,30 +212,33 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   `;
 
   try {
-    // Wait for all images to load properly
+    // Wait a moment for DOM to be fully rendered
+    await new Promise(resolve => setTimeout(resolve, 500));
+
+    // Wait for all images to load
     const images = container.querySelectorAll('img');
     await Promise.all(Array.from(images).map(img => {
       if (img.complete) return Promise.resolve();
       return new Promise((resolve) => {
         img.onload = resolve;
-        img.onerror = resolve; // Continue even if image fails to load
-        // Timeout fallback
-        setTimeout(resolve, 2000);
+        img.onerror = resolve;
+        setTimeout(resolve, 3000);
       });
     }));
 
     // Get the actual height of the content
     const contentElement = container.firstElementChild as HTMLElement;
-    const actualHeight = contentElement ? contentElement.offsetHeight + 100 : 750;
+    const actualHeight = contentElement ? contentElement.offsetHeight + 100 : 800;
 
-    // Generate the image using html2canvas with simplified, reliable settings
+    // Generate the image using html2canvas
     const canvas = await html2canvas(container, {
       scale: scale,
       backgroundColor: '#f8fafc',
-      useCORS: true,
-      allowTaint: true,
+      useCORS: false, // Not needed since we're using data URLs
+      allowTaint: false, // Not needed since we're using data URLs
+      logging: false,
       width: 450,
-      height: Math.max(750, actualHeight),
+      height: Math.max(800, actualHeight),
       scrollX: 0,
       scrollY: 0,
     });
@@ -214,7 +251,9 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
     return dataUrl;
   } catch (error) {
     // Clean up on error
-    document.body.removeChild(container);
+    if (document.body.contains(container)) {
+      document.body.removeChild(container);
+    }
     throw error;
   }
 }
