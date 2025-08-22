@@ -1,25 +1,5 @@
 import html2canvas from 'html2canvas';
 
-/**
- * Convert an SVG file to a data URL
- */
-async function svgToDataUrl(svgPath: string): Promise<string> {
-  try {
-    const response = await fetch(svgPath);
-    const svgText = await response.text();
-    const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onload = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(svgBlob);
-    });
-  } catch (error) {
-    console.warn(`Failed to load SVG: ${svgPath}`, error);
-    return '';
-  }
-}
-
 export interface ProfessionalQROptions {
   merchantName: string;
   upiId: string;
@@ -45,14 +25,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   // Note: SVG format is not supported by html2canvas, fallback to PNG
   const actualFormat = format === 'svg' ? 'png' : format;
 
-  // Pre-load all logo SVGs as data URLs to avoid CORS issues
+  // Get base URL for absolute paths
   const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
-  const [bhimUpiLogo, upiLogo, googlePayLogo, paytmLogo] = await Promise.all([
-    svgToDataUrl(`${baseUrl}/logos/bhim-upi.svg`),
-    svgToDataUrl(`${baseUrl}/logos/upi.svg`),
-    svgToDataUrl(`${baseUrl}/logos/google-pay.svg`),
-    svgToDataUrl(`${baseUrl}/logos/paytm.svg`)
-  ]);
 
   // Create a temporary container
   const container = document.createElement('div');
@@ -151,14 +125,14 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
         margin-bottom: 16px;
       ">
         <img
-          src="${bhimUpiLogo}"
+          src="${baseUrl}/logos/bhim-upi.svg"
           alt="BHIM UPI"
-          style="height: 32px; object-fit: contain; ${!bhimUpiLogo ? 'display: none;' : ''}"
+          style="height: 32px; object-fit: contain;"
         />
         <img
-          src="${upiLogo}"
+          src="${baseUrl}/logos/upi.svg"
           alt="UPI"
-          style="height: 32px; object-fit: contain; ${!upiLogo ? 'display: none;' : ''}"
+          style="height: 32px; object-fit: contain;"
         />
       </div>
 
@@ -174,16 +148,16 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       ">
         <!-- Google Pay -->
         <img
-          src="${googlePayLogo}"
+          src="${baseUrl}/logos/google-pay.svg"
           alt="Google Pay"
-          style="height: 24px; object-fit: contain; ${!googlePayLogo ? 'display: none;' : ''}"
+          style="height: 24px; object-fit: contain;"
         />
 
         <!-- Paytm -->
         <img
-          src="${paytmLogo}"
+          src="${baseUrl}/logos/paytm.svg"
           alt="Paytm"
-          style="height: 24px; object-fit: contain; ${!paytmLogo ? 'display: none;' : ''}"
+          style="height: 24px; object-fit: contain;"
         />
       </div>
 
@@ -204,22 +178,30 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   `;
 
   try {
-    // Small delay to ensure DOM is ready
-    await new Promise(resolve => setTimeout(resolve, 100));
+    // Wait for all images to load properly
+    const images = container.querySelectorAll('img');
+    await Promise.all(Array.from(images).map(img => {
+      if (img.complete) return Promise.resolve();
+      return new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve; // Continue even if image fails to load
+        // Timeout fallback
+        setTimeout(resolve, 2000);
+      });
+    }));
 
     // Get the actual height of the content
     const contentElement = container.firstElementChild as HTMLElement;
-    const actualHeight = contentElement ? contentElement.offsetHeight + 100 : 700; // Add 100px buffer
+    const actualHeight = contentElement ? contentElement.offsetHeight + 100 : 750;
 
-    // Generate the image using html2canvas
+    // Generate the image using html2canvas with simplified, reliable settings
     const canvas = await html2canvas(container, {
       scale: scale,
       backgroundColor: '#f8fafc',
       useCORS: true,
-      allowTaint: false, // Changed to false since we're using data URLs
-      logging: false,
+      allowTaint: true,
       width: 450,
-      height: Math.max(700, actualHeight), // Ensure minimum height of 700px
+      height: Math.max(750, actualHeight),
       scrollX: 0,
       scrollY: 0,
     });
