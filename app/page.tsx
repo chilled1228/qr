@@ -54,7 +54,7 @@ export default function HomePage() {
         }}
       />
 
-      <div className="min-h-screen bg-background">
+      <div className="bg-background">
         <Header />
 
         <main>

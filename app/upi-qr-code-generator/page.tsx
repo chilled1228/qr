@@ -101,7 +101,7 @@ export default function UPIQRGeneratorPage() {
         }}
       />
 
-      <div className="min-h-screen bg-background">
+      <div className="bg-background">
         <Header />
         <Breadcrumb />
 

@@ -657,19 +657,18 @@
 }
 
 /* ===== MOBILE-SPECIFIC TAB OPTIMIZATIONS ===== */
-/* Full-screen mobile QR generator - Flexible height */
+/* Responsive QR generator - No fixed heights */
 .mobile-qr-container {
   @apply w-full;
-  min-height: 500px; /* Minimum usable height */
-  max-height: none; /* Allow natural height */
+  min-height: auto; /* Allow natural height */
+  max-height: none; /* No height constraints */
 }
 
-/* Mobile tab content areas - Allow scrolling when needed */
+/* Mobile tab content areas - Natural flow */
 .mobile-tab-content {
-  @apply flex-1;
-  min-height: 400px; /* Ensure minimum content area */
-  overflow-y: auto; /* Allow scrolling if content is too tall */
-  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  @apply w-full;
+  min-height: auto; /* Allow natural height */
+  overflow: visible; /* No forced scrolling */
 }
 
 /* Mobile tabs list - Touch-friendly */
@@ -713,14 +712,14 @@
 }
 
 /* ===== RESPONSIVE TAB LAYOUT OPTIMIZATIONS ===== */
-/* Ensure proper height management across devices */
+/* Natural height flow across devices */
 @media (max-width: 640px) {
   .mobile-qr-container {
-    min-height: 400px; /* Smaller minimum on mobile */
+    min-height: auto; /* Natural height on mobile */
   }
 
   .mobile-tab-content {
-    min-height: 350px; /* Smaller content area on mobile */
+    min-height: auto; /* Natural content height */
   }
 
   .mobile-tabs-list {
@@ -740,29 +739,30 @@
 
 @media (min-width: 641px) and (max-width: 1023px) {
   .mobile-qr-container {
-    min-height: 500px;
+    min-height: auto; /* Natural height on tablet */
   }
 
   .mobile-tab-content {
-    min-height: 450px;
+    min-height: auto; /* Natural content height */
   }
 }
 
 @media (min-width: 1024px) {
   .mobile-qr-container {
-    min-height: 600px;
+    min-height: auto; /* Natural height on desktop */
   }
 
   .mobile-tab-content {
-    min-height: 550px;
+    min-height: auto; /* Natural content height */
   }
 }
 
 /* ===== TAB CONTENT VISIBILITY IMPROVEMENTS ===== */
-/* Ensure all content is properly visible */
+/* Natural content flow */
 .mobile-tab-content .mobile-card {
   @apply p-4 sm:p-6;
   min-height: auto;
+  height: auto; /* Allow natural height */
 }
 
 /* Improve spacing in tab content */
