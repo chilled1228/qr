@@ -1,5 +1,25 @@
 import html2canvas from 'html2canvas';
 
+/**
+ * Convert an SVG file to a data URL
+ */
+async function svgToDataUrl(svgPath: string): Promise<string> {
+  try {
+    const response = await fetch(svgPath);
+    const svgText = await response.text();
+    const svgBlob = new Blob([svgText], { type: 'image/svg+xml' });
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve(reader.result as string);
+      reader.onerror = reject;
+      reader.readAsDataURL(svgBlob);
+    });
+  } catch (error) {
+    console.warn(`Failed to load SVG: ${svgPath}`, error);
+    return '';
+  }
+}
+
 export interface ProfessionalQROptions {
   merchantName: string;
   upiId: string;
@@ -24,6 +44,15 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
 
   // Note: SVG format is not supported by html2canvas, fallback to PNG
   const actualFormat = format === 'svg' ? 'png' : format;
+
+  // Pre-load all logo SVGs as data URLs to avoid CORS issues
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : '';
+  const [bhimUpiLogo, upiLogo, googlePayLogo, paytmLogo] = await Promise.all([
+    svgToDataUrl(`${baseUrl}/logos/bhim-upi.svg`),
+    svgToDataUrl(`${baseUrl}/logos/upi.svg`),
+    svgToDataUrl(`${baseUrl}/logos/google-pay.svg`),
+    svgToDataUrl(`${baseUrl}/logos/paytm.svg`)
+  ]);
 
   // Create a temporary container
   const container = document.createElement('div');
@@ -122,14 +151,14 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
         margin-bottom: 16px;
       ">
         <img
-          src="/logos/bhim-upi.svg"
+          src="${bhimUpiLogo}"
           alt="BHIM UPI"
-          style="height: 32px; object-fit: contain;"
+          style="height: 32px; object-fit: contain; ${!bhimUpiLogo ? 'display: none;' : ''}"
         />
         <img
-          src="/logos/upi.svg"
+          src="${upiLogo}"
           alt="UPI"
-          style="height: 32px; object-fit: contain;"
+          style="height: 32px; object-fit: contain; ${!upiLogo ? 'display: none;' : ''}"
         />
       </div>
 
@@ -145,16 +174,16 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       ">
         <!-- Google Pay -->
         <img
-          src="/logos/google-pay.svg"
+          src="${googlePayLogo}"
           alt="Google Pay"
-          style="height: 24px; object-fit: contain;"
+          style="height: 24px; object-fit: contain; ${!googlePayLogo ? 'display: none;' : ''}"
         />
 
         <!-- Paytm -->
         <img
-          src="/logos/paytm.svg"
+          src="${paytmLogo}"
           alt="Paytm"
-          style="height: 24px; object-fit: contain;"
+          style="height: 24px; object-fit: contain; ${!paytmLogo ? 'display: none;' : ''}"
         />
       </div>
 
@@ -175,17 +204,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
   `;
 
   try {
-    // Wait for images to load before capturing
-    const images = container.querySelectorAll('img');
-    await Promise.all(Array.from(images).map(img => {
-      if (img.complete) return Promise.resolve();
-      return new Promise((resolve, reject) => {
-        img.onload = resolve;
-        img.onerror = reject;
-        // Fallback for external images that might fail
-        setTimeout(resolve, 1000);
-      });
-    }));
+    // Small delay to ensure DOM is ready
+    await new Promise(resolve => setTimeout(resolve, 100));
 
     // Get the actual height of the content
     const contentElement = container.firstElementChild as HTMLElement;
@@ -196,7 +216,8 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
       scale: scale,
       backgroundColor: '#f8fafc',
       useCORS: true,
-      allowTaint: true,
+      allowTaint: false, // Changed to false since we're using data URLs
+      logging: false,
       width: 450,
       height: Math.max(700, actualHeight), // Ensure minimum height of 700px
       scrollX: 0,
