@@ -389,9 +389,9 @@
     @apply text-primary hover:text-primary-600 hover:bg-primary-50 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
   }
 
-  /* Card Component - Clean and elegant */
+  /* Card Component - Clean and elegant (Shadow-Free) */
   .card {
-    @apply bg-white rounded-lg border border-gray-light p-6 hover:shadow-lg transition-shadow duration-300;
+    @apply bg-white rounded-lg border border-gray-light p-6 hover:border-primary/20 transition-colors duration-300;
   }
 
   /* Input Field Component - Consistent form styling */
@@ -433,7 +433,7 @@
   }
 
   .mobile-card {
-    @apply bg-card rounded-lg border border-border p-4 sm:p-6 shadow-sm hover:shadow-md transition-shadow duration-200;
+    @apply bg-card rounded-lg border border-border p-4 sm:p-6 hover:border-primary/20 hover:bg-card/80 transition-colors duration-200;
   }
 
   .mobile-button {
@@ -471,6 +471,114 @@
 
   .bg-soft {
     @apply bg-white text-neutral-800;
+  }
+
+  /* ===== SHADOW-FREE DESIGN UTILITIES ===== */
+  /* Professional visual separation without shadows */
+
+  .card-elevated {
+    @apply bg-card border-2 border-border/50 rounded-lg;
+  }
+
+  .card-subtle {
+    @apply bg-muted/30 border border-border rounded-lg;
+  }
+
+  .section-divider {
+    @apply border-t border-border/30 pt-8 mt-8;
+  }
+
+  .content-highlight {
+    @apply bg-primary/5 border-l-4 border-primary pl-4;
+  }
+
+  .interactive-border {
+    @apply border border-border hover:border-primary/40 transition-colors duration-200;
+  }
+
+  .professional-spacing {
+    @apply space-y-6 sm:space-y-8 lg:space-y-12;
+  }
+
+  /* ===== ENHANCED MOBILE-FIRST RESPONSIVE DESIGN ===== */
+  /* Starting from 320px viewport with progressive enhancement */
+
+  .mobile-text-xs { @apply text-xs leading-normal; }
+  .mobile-text-sm { @apply text-sm leading-relaxed; }
+  .mobile-text-base { @apply text-sm sm:text-base leading-relaxed; }
+  .mobile-text-lg { @apply text-base sm:text-lg leading-relaxed; }
+  .mobile-text-xl { @apply text-lg sm:text-xl leading-tight; }
+  .mobile-text-2xl { @apply text-xl sm:text-2xl leading-tight; }
+  .mobile-text-3xl { @apply text-2xl sm:text-3xl lg:text-4xl leading-tight; }
+
+  .mobile-spacing-xs { @apply space-y-2 sm:space-y-3; }
+  .mobile-spacing-sm { @apply space-y-3 sm:space-y-4; }
+  .mobile-spacing-md { @apply space-y-4 sm:space-y-6; }
+  .mobile-spacing-lg { @apply space-y-6 sm:space-y-8 lg:space-y-12; }
+
+  .mobile-padding-sm { @apply p-3 sm:p-4; }
+  .mobile-padding-md { @apply p-4 sm:p-6; }
+  .mobile-padding-lg { @apply p-6 sm:p-8; }
+
+  .mobile-gap-sm { @apply gap-3 sm:gap-4; }
+  .mobile-gap-md { @apply gap-4 sm:gap-6; }
+  .mobile-gap-lg { @apply gap-6 sm:gap-8; }
+
+  /* Touch-friendly interactive elements */
+  .touch-target {
+    @apply min-h-[44px] min-w-[44px] flex items-center justify-center;
+  }
+
+  .touch-button {
+    @apply min-h-[48px] px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200;
+  }
+
+  .touch-input {
+    @apply min-h-[48px] px-4 py-3 text-base border border-input rounded-lg bg-background;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  /* ===== ACCESSIBILITY ENHANCEMENTS ===== */
+  /* WCAG AA compliance and improved user experience */
+
+  .focus-visible-enhanced {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+  }
+
+  .high-contrast-text {
+    @apply text-foreground;
+    /* Ensures minimum 4.5:1 contrast ratio */
+  }
+
+  .accessible-link {
+    @apply underline-offset-4 hover:underline focus-visible-enhanced;
+  }
+
+  .screen-reader-only {
+    @apply sr-only;
+  }
+
+  .skip-to-content {
+    @apply sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-primary text-primary-foreground px-4 py-2 rounded-lg z-50 focus-visible-enhanced;
+  }
+
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe-only {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    .card-elevated, .card-subtle {
+      @apply border-2 border-foreground;
+    }
+
+    .interactive-border {
+      @apply border-2 border-foreground hover:border-primary;
+    }
   }
 }
 
@@ -581,7 +689,7 @@
 }
 
 .mobile-tab-trigger[data-state="active"] {
-  @apply bg-background text-foreground shadow-sm;
+  @apply bg-background text-foreground border border-primary/20;
 }
 
 .mobile-tab-trigger:disabled {

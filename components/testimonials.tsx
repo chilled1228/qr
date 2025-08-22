@@ -26,32 +26,32 @@ export function Testimonials() {
   ];
 
   return (
-    <section className="py-16">
-      <div className="text-center section-spacing">
-        <h2 className="element-spacing">What Our Users Say</h2>
-        <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
+    <section className="py-12 sm:py-16 lg:py-20">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-foreground">
+          What Our Users Say
+        </h2>
+        <p className="text-base sm:text-lg text-foreground-secondary max-w-2xl mx-auto leading-relaxed">
           Join thousands of satisfied merchants who trust our UPI QR code generator for their business.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
         {testimonials.map((testimonial, index) => (
-          <Card key={index} className="bg-card/70 backdrop-blur-sm border-0 shadow-xl">
-            <CardContent className="p-6">
-              <div className="flex items-center mb-4">
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} className="w-4 h-4 fill-active text-active" />
-                ))}
-              </div>
-              <p className="text-foreground-secondary mb-4 italic">
-                "{testimonial.text}"
-              </p>
-              <div>
-                <p className="font-semibold text-foreground">{testimonial.name}</p>
-                <p className="text-caption text-foreground-muted">{testimonial.business}</p>
-              </div>
-            </CardContent>
-          </Card>
+          <div key={index} className="card-elevated p-6 sm:p-8 hover:border-primary/30 transition-colors duration-200">
+            <div className="flex items-center mb-4 sm:mb-6">
+              {[...Array(testimonial.rating)].map((_, i) => (
+                <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-warning text-warning" />
+              ))}
+            </div>
+            <blockquote className="text-sm sm:text-base text-foreground-secondary mb-4 sm:mb-6 italic leading-relaxed">
+              "{testimonial.text}"
+            </blockquote>
+            <div className="border-t border-border pt-4">
+              <p className="font-semibold text-foreground text-sm sm:text-base">{testimonial.name}</p>
+              <p className="text-xs sm:text-sm text-foreground-muted mt-1">{testimonial.business}</p>
+            </div>
+          </div>
         ))}
       </div>
     </section>

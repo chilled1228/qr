@@ -23,32 +23,40 @@ export function HowItWorks() {
   ];
 
   return (
-    <section className="py-16">
-      <div className="text-center section-spacing">
-        <h2 className="element-spacing">How to Generate UPI QR Code in 3 Steps</h2>
-        <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
+    <section className="py-12 sm:py-16 lg:py-20">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-foreground">
+          How to Generate UPI QR Code in 3 Steps
+        </h2>
+        <p className="text-base sm:text-lg text-foreground-secondary max-w-2xl mx-auto leading-relaxed">
           Create your professional UPI payment QR code in under 30 seconds. No technical knowledge required.
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
         {steps.map((step, index) => (
-          <Card key={index} className="bg-card/70 backdrop-blur-sm border-0 shadow-xl">
-            <CardContent className="p-6 text-center">
-              <div className="w-16 h-16 mx-auto mb-4 bg-secondary-100 rounded-full flex items-center justify-center">
-                <step.icon className="w-8 h-8 text-secondary-600" />
+          <div key={index} className="card-subtle p-6 sm:p-8 text-center hover:bg-muted/50 transition-colors duration-200">
+            <div className="relative mb-6 sm:mb-8">
+              <div className="w-16 h-16 sm:w-20 sm:h-20 mx-auto bg-secondary/10 rounded-full flex items-center justify-center">
+                <step.icon className="w-8 h-8 sm:w-10 sm:h-10 text-secondary-600" />
               </div>
-              <h3 className="tight-spacing text-foreground">{step.title}</h3>
-              <p className="text-foreground-secondary">{step.description}</p>
-            </CardContent>
-          </Card>
+              <div className="absolute -top-2 -right-2 w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-sm font-bold">
+                {index + 1}
+              </div>
+            </div>
+            <h3 className="text-lg sm:text-xl font-semibold mb-3 sm:mb-4 text-foreground">{step.title}</h3>
+            <p className="text-sm sm:text-base text-foreground-secondary leading-relaxed">{step.description}</p>
+          </div>
         ))}
       </div>
 
-      <div className="mt-12 text-center">
-        <p className="text-caption text-foreground-muted">
-          Used by over 10,000+ merchants across India for secure UPI payments
-        </p>
+      <div className="mt-12 sm:mt-16 text-center">
+        <div className="inline-flex items-center gap-2 px-4 py-2 bg-success/10 text-success rounded-full">
+          <div className="w-2 h-2 bg-success rounded-full"></div>
+          <p className="text-sm sm:text-base font-medium">
+            Used by over 10,000+ merchants across India for secure UPI payments
+          </p>
+        </div>
       </div>
     </section>
   );

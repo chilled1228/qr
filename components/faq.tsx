@@ -45,33 +45,37 @@ export function FAQ() {
   ];
 
   return (
-    <section className="py-16">
-      <div className="text-center section-spacing">
-        <h2 className="element-spacing">Frequently Asked Questions</h2>
-        <p className="text-lg text-foreground-secondary max-w-2xl mx-auto">
+    <section className="py-12 sm:py-16 lg:py-20">
+      <div className="text-center mb-12 sm:mb-16">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4 sm:mb-6 text-foreground">
+          Frequently Asked Questions
+        </h2>
+        <p className="text-base sm:text-lg text-foreground-secondary max-w-2xl mx-auto leading-relaxed">
           Everything you need to know about generating and using UPI QR codes for your business.
         </p>
       </div>
 
-      <Card className="bg-card/70 backdrop-blur-sm border-0 shadow-xl">
-        <CardHeader>
-          <CardTitle>UPI QR Code FAQs</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <Accordion type="single" collapsible className="w-full">
-            {faqs.map((faq, index) => (
-              <AccordionItem key={index} value={`item-${index}`}>
-                <AccordionTrigger className="text-left">
-                  {faq.question}
-                </AccordionTrigger>
-                <AccordionContent className="text-foreground-secondary">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
-        </CardContent>
-      </Card>
+      <div className="max-w-4xl mx-auto">
+        <div className="card-elevated">
+          <div className="p-6 sm:p-8 border-b border-border">
+            <h3 className="text-xl sm:text-2xl font-semibold text-foreground">UPI QR Code FAQs</h3>
+          </div>
+          <div className="p-6 sm:p-8">
+            <Accordion type="single" collapsible className="w-full space-y-4">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border border-border rounded-lg">
+                  <AccordionTrigger className="text-left px-4 sm:px-6 py-4 hover:bg-muted/50 rounded-lg text-sm sm:text-base font-medium">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="px-4 sm:px-6 pb-4 text-sm sm:text-base text-foreground-secondary leading-relaxed">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
+      </div>
 
       {/* FAQ Schema Markup */}
       <script
