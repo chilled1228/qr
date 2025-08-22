@@ -76,9 +76,9 @@ export function QRGenerator() {
           {/* Create Tab - Form and QR Preview */}
           <TabsContent value="create" className="mobile-tab-content mt-0">
             <div className="mobile-card">
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8 xl:h-[80vh]">
                 {/* Form Section */}
-                <div className="space-y-4">
+                <div className="space-y-4 xl:max-h-[80vh] xl:overflow-auto xl:pr-1">
                   <div className="flex items-center gap-2 mb-4">
                     <QrCode className="h-5 w-5 text-primary" />
                     <h2 className="text-lg font-semibold">Enter Details</h2>
@@ -92,7 +92,7 @@ export function QRGenerator() {
                 </div>
 
                 {/* QR Preview Section */}
-                <div className="space-y-4">
+                <div className="space-y-4 xl:max-h-[80vh] xl:overflow-auto xl:pl-1">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
                       <div className="h-2 w-2 bg-primary rounded"></div>
@@ -119,9 +119,9 @@ export function QRGenerator() {
           {/* Customize Tab - QR Styling Options */}
           <TabsContent value="customize" className="mobile-tab-content mt-0">
             <div className="mobile-card">
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8 xl:h-[80vh]">
                 {/* Customization Controls */}
-                <div className="space-y-4">
+                <div className="space-y-4 xl:max-h-[80vh] xl:overflow-auto xl:pr-1">
                   <div className="flex items-center gap-2 mb-4">
                     <Palette className="h-5 w-5 text-primary" />
                     <h2 className="text-lg font-semibold">Customize Style</h2>
@@ -134,7 +134,7 @@ export function QRGenerator() {
                 </div>
 
                 {/* Live Preview */}
-                <div className="space-y-4">
+                <div className="space-y-4 xl:max-h-[80vh] xl:overflow-auto xl:pl-1">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
                       <div className="h-2 w-2 bg-primary rounded"></div>
@@ -161,9 +161,9 @@ export function QRGenerator() {
           {/* Download Tab - QR Code and Download Options */}
           <TabsContent value="download" className="mobile-tab-content mt-0">
             <div className="mobile-card">
-              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8 xl:h-[80vh]">
                 {/* Final QR Code Display */}
-                <div className="space-y-4">
+                <div className="space-y-4 xl:max-h-[80vh] xl:overflow-auto xl:pr-1">
                   <div className="flex items-center gap-2 mb-4">
                     <Download className="h-5 w-5 text-primary" />
                     <h2 className="text-lg font-semibold">Your QR Code</h2>
@@ -183,7 +183,7 @@ export function QRGenerator() {
                 </div>
 
                 {/* Download Instructions */}
-                <div className="space-y-4">
+                <div className="space-y-4 xl:max-h-[80vh] xl:overflow-auto xl:pl-1">
                   <div className="flex items-center gap-2 mb-4">
                     <div className="h-5 w-5 rounded bg-success/20 flex items-center justify-center">
                       <div className="h-2 w-2 bg-success rounded"></div>
