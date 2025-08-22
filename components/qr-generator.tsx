@@ -52,7 +52,7 @@ export function QRGenerator() {
   }, []);
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-4xl mx-auto">
       {/* Mobile-First Tabbed Interface - Improved Visibility */}
       <div className="mobile-qr-container">
         <Tabs defaultValue="create" className="w-full flex flex-col">
@@ -76,7 +76,7 @@ export function QRGenerator() {
           {/* Create Tab - Form and QR Preview */}
           <TabsContent value="create" className="mobile-tab-content mt-0">
             <div className="mobile-card">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
                 {/* Form Section */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2 mb-4">
@@ -119,7 +119,7 @@ export function QRGenerator() {
           {/* Customize Tab - QR Styling Options */}
           <TabsContent value="customize" className="mobile-tab-content mt-0">
             <div className="mobile-card">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
                 {/* Customization Controls */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2 mb-4">
@@ -161,7 +161,7 @@ export function QRGenerator() {
           {/* Download Tab - QR Code and Download Options */}
           <TabsContent value="download" className="mobile-tab-content mt-0">
             <div className="mobile-card">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+              <div className="grid grid-cols-1 xl:grid-cols-2 gap-4 md:gap-6 xl:gap-8">
                 {/* Final QR Code Display */}
                 <div className="space-y-4">
                   <div className="flex items-center gap-2 mb-4">
