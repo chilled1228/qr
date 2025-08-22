@@ -664,11 +664,29 @@
   max-height: none; /* No height constraints */
 }
 
-/* Mobile tab content areas - Natural flow */
+/* Mobile tab content areas - Natural flow with smooth transitions */
 .mobile-tab-content {
   @apply w-full;
   min-height: auto; /* Allow natural height */
   overflow: visible; /* No forced scrolling */
+  opacity: 1; /* Start visible */
+  transform: translateY(0);
+}
+
+/* Only animate when tab becomes active */
+.mobile-tab-content[data-state="active"] {
+  animation: tabContentFadeIn 0.3s ease-out;
+}
+
+@keyframes tabContentFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Mobile tabs list - Touch-friendly */
@@ -679,20 +697,29 @@
   flex-shrink: 0;
 }
 
-/* Mobile tab triggers - Optimized for touch */
+/* Mobile tab triggers - Optimized for touch with enhanced animations */
 .mobile-tab-trigger {
   @apply text-sm font-medium py-3 px-2 flex-1 flex items-center justify-center gap-2;
   min-height: 48px; /* iOS touch target */
   border-radius: 6px;
   transition: all 0.2s ease-in-out;
+  transform: scale(1);
 }
 
 .mobile-tab-trigger[data-state="active"] {
   @apply bg-background text-foreground border border-primary/20;
+  transform: scale(1.02);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.mobile-tab-trigger:hover:not([data-state="active"]):not(:disabled) {
+  @apply bg-background/50;
+  transform: scale(1.01);
 }
 
 .mobile-tab-trigger:disabled {
   @apply opacity-50 cursor-not-allowed;
+  transform: scale(0.98);
 }
 
 /* Mobile form optimizations */

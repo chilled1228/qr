@@ -53,8 +53,10 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
           letter-spacing: 0.05em;
           margin: 0;
           padding: 0;
+          line-height: 1.2;
+          word-break: break-word;
         ">
-          ${merchantName || 'MERCHANT NAME'}
+          ${(merchantName && merchantName.trim()) ? merchantName.trim().toUpperCase() : 'MERCHANT NAME'}
         </h2>
       </div>
 

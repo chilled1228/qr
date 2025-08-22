@@ -28,8 +28,8 @@ export const ProfessionalQRCard = forwardRef<HTMLDivElement, ProfessionalQRCardP
       >
         {/* Merchant Name */}
         <div className="space-y-2">
-          <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wide leading-snug">
-            {merchantName || 'MERCHANT NAME'}
+          <h2 className="text-xl font-bold text-gray-900 uppercase tracking-wide leading-snug break-words">
+            {(merchantName && merchantName.trim()) ? merchantName.trim() : 'MERCHANT NAME'}
           </h2>
         </div>
 

@@ -93,11 +93,14 @@ export function QRGenerator() {
 
                 {/* QR Preview Section */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
-                      <div className="h-2 w-2 bg-primary rounded"></div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
+                        <div className="h-2 w-2 bg-primary rounded"></div>
+                      </div>
+                      <h2 className="text-lg font-semibold">Preview</h2>
                     </div>
-                    <h2 className="text-lg font-semibold">Preview</h2>
+
                   </div>
 
                   <QRDisplay
@@ -135,11 +138,14 @@ export function QRGenerator() {
 
                 {/* Live Preview */}
                 <div className="space-y-4">
-                  <div className="flex items-center gap-2 mb-4">
-                    <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
-                      <div className="h-2 w-2 bg-primary rounded"></div>
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="flex items-center gap-2">
+                      <div className="h-5 w-5 rounded bg-primary/20 flex items-center justify-center">
+                        <div className="h-2 w-2 bg-primary rounded"></div>
+                      </div>
+                      <h2 className="text-lg font-semibold">Live Preview</h2>
                     </div>
-                    <h2 className="text-lg font-semibold">Live Preview</h2>
+
                   </div>
 
                   <QRDisplay

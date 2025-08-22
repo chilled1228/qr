@@ -8,7 +8,7 @@ import { Slider } from '@/components/ui/slider';
 import { Label } from '@/components/ui/label';
 import { ProfessionalQRCard } from './professional-qr-card';
 import { downloadProfessionalQRCard } from '@/lib/professional-qr-generator';
-import { Download, Copy, Check, Share2, Loader2, CreditCard } from 'lucide-react';
+import { Download, Copy, Check, Share2, Loader2, CreditCard, ChevronDown, ChevronUp } from 'lucide-react';
 import { toast } from 'sonner';
 import type { QRFormData, QROptions } from '@/types/qr-types';
 
@@ -36,6 +36,7 @@ export function QRDisplay({
   showPaymentDetails = true
 }: QRDisplayProps) {
   const [copied, setCopied] = useState(false);
+  const [actionsExpanded, setActionsExpanded] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   const downloadQR = useCallback(async (format: 'png' | 'svg') => {
@@ -140,8 +141,8 @@ export function QRDisplay({
 
     try {
       await downloadProfessionalQRCard({
-        merchantName: formData.merchantName || 'MERCHANT NAME',
-        upiId: formData.upiId || 'merchant@upi',
+        merchantName: (formData.merchantName && formData.merchantName.trim()) ? formData.merchantName.trim() : 'MERCHANT NAME',
+        upiId: (formData.upiId && formData.upiId.trim()) ? formData.upiId.trim() : 'merchant@upi',
         qrCode: qrCode,
         format: 'png',
         quality: 1.0,
@@ -218,15 +219,117 @@ export function QRDisplay({
 
   return (
     <div className="space-y-4" onKeyDown={handleKeyDown} tabIndex={0} role="region" aria-labelledby="qr-title">
-      {/* Professional QR Code Display */}
+      {/* Professional QR Code Display with Creative Floating Action Panel */}
       {qrCode ? (
-        <div className="flex justify-center">
-          <ProfessionalQRCard
-            qrCode={qrCode}
-            merchantName={formData.merchantName || 'MERCHANT NAME'}
-            upiId={formData.upiId || 'merchant@upi'}
-            qrSize={options.size ? Math.max(96, Math.min(320, options.size / 2)) : 144}
-          />
+        <div className="relative">
+          {/* Main QR Card - Full Size, Centered */}
+          <div className="flex justify-center">
+            <ProfessionalQRCard
+              qrCode={qrCode}
+              merchantName={(formData.merchantName && formData.merchantName.trim()) ? formData.merchantName.trim() : 'MERCHANT NAME'}
+              upiId={(formData.upiId && formData.upiId.trim()) ? formData.upiId.trim() : 'merchant@upi'}
+              qrSize={options.size ? Math.max(96, Math.min(320, options.size / 2)) : 144}
+            />
+          </div>
+          
+          {/* Expandable Download Panel */}
+          <div className="mt-6 lg:absolute lg:top-0 lg:right-0 lg:mt-0">
+            {/* Compact Action Panel */}
+            <div className="bg-gradient-to-br from-background via-background to-muted/30 rounded-xl border border-border/50 shadow-lg backdrop-blur-sm overflow-hidden">
+              {/* Header - Always Visible */}
+              <button
+                onClick={() => setActionsExpanded(!actionsExpanded)}
+                className="w-full p-3 text-center lg:text-left hover:bg-muted/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                aria-expanded={actionsExpanded}
+                aria-label={actionsExpanded ? "Collapse quick actions" : "Expand quick actions"}
+              >
+                <div className="flex items-center justify-center lg:justify-between gap-2">
+                  <div className="flex items-center gap-2">
+                    <Download className="h-4 w-4 text-primary" />
+                    <span className="text-sm font-semibold text-foreground">Download</span>
+                  </div>
+                  {actionsExpanded ? (
+                    <ChevronUp className="h-4 w-4 text-muted-foreground" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 text-muted-foreground" />
+                  )}
+                </div>
+              </button>
+              
+              {/* Expandable Content */}
+              {actionsExpanded && (
+                <div className="px-3 pb-3 space-y-2 animate-fade-in">
+                  {/* Primary Actions */}
+                  <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                    <Button
+                      onClick={() => downloadQR('png')}
+                      className="h-9 text-xs font-medium"
+                      variant="outline"
+                      size="sm"
+                    >
+                      <Download className="mr-1.5 h-3.5 w-3.5" />
+                      PNG
+                    </Button>
+                    <Button
+                      onClick={() => downloadQR('svg')}
+                      className="h-9 text-xs font-medium"
+                      variant="outline"
+                      size="sm"
+                    >
+                      <Download className="mr-1.5 h-3.5 w-3.5" />
+                      SVG
+                    </Button>
+                  </div>
+                  
+                  <Button
+                    onClick={downloadProfessionalCard}
+                    className="w-full h-9 text-xs font-medium"
+                    variant="default"
+                    size="sm"
+                  >
+                    <CreditCard className="mr-1.5 h-3.5 w-3.5" />
+                    Professional Card
+                  </Button>
+                  
+                  {/* Secondary Actions */}
+                  <div className="pt-2 border-t border-border/30">
+                    <div className="grid grid-cols-2 gap-2">
+                      <Button
+                        onClick={copyToClipboard}
+                        className="h-8 text-xs"
+                        variant="ghost"
+                        size="sm"
+                      >
+                        {copied ? (
+                          <>
+                            <Check className="mr-1 h-3 w-3 text-green-600" />
+                            <span>Copied!</span>
+                          </>
+                        ) : (
+                          <>
+                            <Copy className="mr-1 h-3 w-3" />
+                            <span>Copy</span>
+                          </>
+                        )}
+                      </Button>
+                      
+                      {typeof navigator !== 'undefined' && 'share' in navigator && (
+                        <Button
+                          onClick={shareQR}
+                          className="h-8 text-xs"
+                          variant="ghost"
+                          size="sm"
+                        >
+                          <Share2 className="mr-1 h-3 w-3" />
+                          Share
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
       ) : (
         <div className="aspect-square bg-muted rounded-lg flex items-center justify-center p-4">
@@ -253,96 +356,14 @@ export function QRDisplay({
         </div>
       )}
 
-      {/* Action Buttons - Conditionally shown */}
+      {/* Additional Actions - Only shown on Download tab */}
       {showActions && (
-        <div className="space-y-3" role="group" aria-label="QR code actions">
-          {isGenerating ? (
-            // Skeleton loading state for buttons
-            <div className="space-y-3">
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-              </div>
-              <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-              {typeof navigator !== 'undefined' && 'share' in navigator && (
-                <div className="h-10 sm:h-12 bg-muted rounded animate-pulse"></div>
-              )}
-            </div>
-          ) : (
-            <>
-              <div className="grid grid-cols-2 gap-2 sm:gap-3">
-                <Button
-                  onClick={() => downloadQR('png')}
-                  className="mobile-button w-full"
-                  variant="outline"
-                  aria-label="Download QR code as PNG image"
-                  disabled={!qrCode}
-                >
-                  <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="hidden sm:inline">PNG</span>
-                  <span className="sm:hidden">PNG</span>
-                </Button>
-                <Button
-                  onClick={() => downloadQR('svg')}
-                  className="mobile-button w-full"
-                  variant="outline"
-                  aria-label="Download QR code as SVG vector"
-                  disabled={!qrCode}
-                >
-                  <Download className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="hidden sm:inline">SVG</span>
-                  <span className="sm:hidden">SVG</span>
-                </Button>
-              </div>
-
-              <Button
-                onClick={copyToClipboard}
-                className="mobile-button w-full"
-                variant="outline"
-                aria-label={copied ? "Payment link copied to clipboard" : "Copy UPI payment link to clipboard"}
-                disabled={!qrCode}
-              >
-                {copied ? (
-                  <>
-                    <Check className="mr-2 h-4 w-4" aria-hidden="true" />
-                    <span>Copied!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="mr-2 h-4 w-4" aria-hidden="true" />
-                    <span className="hidden sm:inline">Copy Payment Link</span>
-                    <span className="sm:hidden">Copy Link</span>
-                  </>
-                )}
-              </Button>
-
-              <Button
-                onClick={downloadProfessionalCard}
-                className="mobile-button w-full"
-                variant="default"
-                aria-label="Download professional QR card with company branding"
-                disabled={!qrCode}
-              >
-                <CreditCard className="mr-2 h-4 w-4" aria-hidden="true" />
-                <span className="hidden sm:inline">Download Professional Card</span>
-                <span className="sm:hidden">Pro Card</span>
-              </Button>
-
-              {typeof navigator !== 'undefined' && 'share' in navigator && (
-                <Button
-                  onClick={shareQR}
-                  className="mobile-button w-full"
-                  variant="outline"
-                  aria-label="Share QR code using device share menu"
-                  disabled={!qrCode}
-                >
-                  <Share2 className="mr-2 h-4 w-4" aria-hidden="true" />
-                  <span className="hidden sm:inline">Share QR Code</span>
-                  <span className="sm:hidden">Share</span>
-                </Button>
-              )}
-            </>
-          )}
+        <div className="pt-4 border-t border-border">
+          <div className="text-center">
+            <p className="text-sm text-foreground-muted mb-3">
+              Your QR code is ready! Use the buttons above to download or share.
+            </p>
+          </div>
         </div>
       )}
 
