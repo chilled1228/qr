@@ -44,18 +44,56 @@ export function QRDisplay({
 
     try {
       if (format === 'png') {
-        // Download the professional card instead of just QR code
-        await downloadProfessionalQRCard({
-          merchantName: (formData.merchantName && formData.merchantName.trim()) ? formData.merchantName.trim() : 'MERCHANT NAME',
-          upiId: (formData.upiId && formData.upiId.trim()) ? formData.upiId.trim() : 'merchant@upi',
-          qrCode: qrCode,
-          format: 'png',
-          quality: 1.0,
-          scale: 2
-        });
-        toast.success('Professional QR card downloaded as PNG');
+        // Create a higher resolution canvas for PNG download
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        if (!ctx) return;
+
+        const img = new Image();
+        img.onload = () => {
+          const size = 1024; // High resolution for print quality (minimum 2cm x 2cm at 300 DPI)
+          canvas.width = size;
+          canvas.height = size;
+          
+          // Fill background
+          ctx.fillStyle = options.bgColor;
+          ctx.fillRect(0, 0, size, size);
+          
+          // Draw QR code
+          ctx.drawImage(img, 0, 0, size, size);
+          
+          // Add logo if present
+          if (options.logo) {
+            const logoImg = new Image();
+            logoImg.onload = () => {
+              const logoSize = size * 0.2; // 20% of QR code size
+              const logoX = (size - logoSize) / 2;
+              const logoY = (size - logoSize) / 2;
+              
+              // Draw white background for logo
+              ctx.fillStyle = '#ffffff';
+              ctx.fillRect(logoX - 10, logoY - 10, logoSize + 20, logoSize + 20);
+              
+              ctx.drawImage(logoImg, logoX, logoY, logoSize, logoSize);
+              
+              // Download
+              const link = document.createElement('a');
+              link.download = `upi-qr-${formData.merchantName || 'code'}.png`;
+              link.href = canvas.toDataURL('image/png');
+              link.click();
+            };
+            logoImg.src = options.logo;
+          } else {
+            // Download without logo
+            const link = document.createElement('a');
+            link.download = `upi-qr-${formData.merchantName || 'code'}.png`;
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+          }
+        };
+        img.src = qrCode;
       } else {
-        // For SVG, still download just the QR code since cards work better as PNG
+        // Generate SVG with enhanced settings for better compatibility
         const QRCode = (await import('qrcode')).default;
         const svgString = await QRCode.toString(upiString, {
           type: 'svg',
@@ -75,13 +113,14 @@ export function QRDisplay({
         link.href = url;
         link.click();
         URL.revokeObjectURL(url);
-        toast.success('QR code downloaded as SVG');
       }
+      
+      toast.success(`QR code downloaded as ${format.toUpperCase()}`);
     } catch (error) {
       console.error('Download error:', error);
       toast.error('Failed to download QR code');
     }
-  }, [qrCode, upiString, formData.merchantName, formData.upiId, options]);
+  }, [qrCode, upiString, formData.merchantName, options]);
 
   const copyToClipboard = useCallback(async () => {
     if (!upiString) return;
@@ -97,7 +136,7 @@ export function QRDisplay({
     }
   }, [upiString]);
 
-  const downloadProfessionalCard = useCallback(async () => {
+  const downloadProfessionalCard = useCallback(async (format: 'png' | 'svg' = 'png') => {
     if (!qrCode) return;
 
     try {
@@ -105,11 +144,11 @@ export function QRDisplay({
         merchantName: (formData.merchantName && formData.merchantName.trim()) ? formData.merchantName.trim() : 'MERCHANT NAME',
         upiId: (formData.upiId && formData.upiId.trim()) ? formData.upiId.trim() : 'merchant@upi',
         qrCode: qrCode,
-        format: 'png',
+        format: format,
         quality: 1.0,
         scale: 2
       });
-      toast.success('Professional QR card downloaded successfully');
+      toast.success(`Professional QR card downloaded as ${format.toUpperCase()}`);
     } catch (error) {
       console.error('Professional card download error:', error);
       toast.error('Failed to download professional QR card');
@@ -193,18 +232,18 @@ export function QRDisplay({
             />
           </div>
           
-          {/* Fixed Download Panel */}
-          <div className="mt-6">
+          {/* Expandable Download Panel */}
+          <div className="mt-6 lg:absolute lg:top-0 lg:right-0 lg:mt-0">
             {/* Compact Action Panel */}
             <div className="bg-gradient-to-br from-background via-background to-muted/30 rounded-xl border border-border/50 shadow-lg backdrop-blur-sm overflow-hidden">
               {/* Header - Always Visible */}
               <button
                 onClick={() => setActionsExpanded(!actionsExpanded)}
-                className="w-full p-3 text-center hover:bg-muted/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
+                className="w-full p-3 text-center lg:text-left hover:bg-muted/20 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary/20"
                 aria-expanded={actionsExpanded}
                 aria-label={actionsExpanded ? "Collapse quick actions" : "Expand quick actions"}
               >
-                <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center justify-center lg:justify-between gap-2">
                   <div className="flex items-center gap-2">
                     <Download className="h-4 w-4 text-primary" />
                     <span className="text-sm font-semibold text-foreground">Download</span>
@@ -220,27 +259,54 @@ export function QRDisplay({
               {/* Expandable Content */}
               {actionsExpanded && (
                 <div className="px-3 pb-3 space-y-2 animate-fade-in">
-                  {/* Primary Actions */}
-                  <div className="grid grid-cols-2 gap-2">
+                  {/* Primary Actions - Download Professional Card */}
+                  <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
                     <Button
-                      onClick={() => downloadQR('png')}
+                      onClick={() => downloadProfessionalCard('png')}
                       className="h-9 text-xs font-medium"
                       variant="default"
                       size="sm"
                     >
-                      <Download className="mr-1.5 h-3.5 w-3.5" />
-                      Card (PNG)
+                      <CreditCard className="mr-1.5 h-3.5 w-3.5" />
+                      Card PNG
                     </Button>
                     <Button
-                      onClick={() => downloadQR('svg')}
+                      onClick={() => downloadProfessionalCard('svg')}
                       className="h-9 text-xs font-medium"
-                      variant="outline"
+                      variant="default"
                       size="sm"
                     >
-                      <Download className="mr-1.5 h-3.5 w-3.5" />
-                      QR (SVG)
+                      <CreditCard className="mr-1.5 h-3.5 w-3.5" />
+                      Card SVG
                     </Button>
                   </div>
+                  
+                  {/* Individual QR Downloads - Only show on download tab */}
+                  {showActions && (
+                    <div className="space-y-2">
+                      <div className="text-xs text-muted-foreground text-center">QR Code Only</div>
+                      <div className="grid grid-cols-2 lg:grid-cols-1 gap-2">
+                        <Button
+                          onClick={() => downloadQR('png')}
+                          className="h-8 text-xs font-medium"
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Download className="mr-1.5 h-3 w-3" />
+                          QR PNG
+                        </Button>
+                        <Button
+                          onClick={() => downloadQR('svg')}
+                          className="h-8 text-xs font-medium"
+                          variant="outline"
+                          size="sm"
+                        >
+                          <Download className="mr-1.5 h-3 w-3" />
+                          QR SVG
+                        </Button>
+                      </div>
+                    </div>
+                  )}
                   
                   {/* Secondary Actions */}
                   <div className="pt-2 border-t border-border/30">

@@ -4,7 +4,7 @@ export interface ProfessionalQROptions {
   merchantName: string;
   upiId: string;
   qrCode: string;
-  format?: 'png' | 'jpeg';
+  format?: 'png' | 'jpeg' | 'svg';
   quality?: number;
   scale?: number;
 }
@@ -21,6 +21,9 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
     quality = 1.0,
     scale = 2
   } = options;
+
+  // Note: SVG format is not supported by html2canvas, fallback to PNG
+  const actualFormat = format === 'svg' ? 'png' : format;
 
   // Create a temporary container
   const container = document.createElement('div');
@@ -186,7 +189,7 @@ export async function generateProfessionalQRCard(options: ProfessionalQROptions)
     document.body.removeChild(container);
 
     // Convert to data URL
-    const dataUrl = canvas.toDataURL(`image/${format}`, quality);
+    const dataUrl = canvas.toDataURL(`image/${actualFormat}`, quality);
     return dataUrl;
   } catch (error) {
     // Clean up on error
@@ -205,7 +208,8 @@ export async function downloadProfessionalQRCard(
   const dataUrl = await generateProfessionalQRCard(options);
   
   const link = document.createElement('a');
-  link.download = filename || `upi-qr-${options.merchantName.replace(/\s+/g, '-').toLowerCase()}.${options.format || 'png'}`;
+  const actualFormat = options.format === 'svg' ? 'png' : (options.format || 'png');
+  link.download = filename || `upi-qr-card-${options.merchantName.replace(/\s+/g, '-').toLowerCase()}.${actualFormat}`;
   link.href = dataUrl;
   link.click();
 }
