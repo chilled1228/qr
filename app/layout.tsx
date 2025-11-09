@@ -71,6 +71,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <meta name="theme-color" content="#3b82f6" />
+        <meta name="google-site-verification" content="8WzzcYEY2sJMSKNPqp1zdheet3yC0YjgDdVRg4-9oi4" />
       </head>
       <body className={`${inter.className} antialiased`}>
         <ThemeProvider
