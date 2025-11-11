@@ -35,21 +35,64 @@ export default function HomePage() {
       <NetworkStatus />
       <PerformanceMonitor />
 
-      {/* Organization Schema Markup */}
+      {/* Enhanced Organization Schema Markup */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify({
             "@context": "https://schema.org",
             "@type": "Organization",
-            "name": "Free UPI QR Generator",
+            "name": "UPI QR Generator",
             "url": "https://freeupiqrgenerator.com",
             "logo": "https://freeupiqrgenerator.com/logo.png",
-            "description": "Free UPI QR code generator for businesses and individuals. Create customizable UPI payment QR codes instantly.",
+            "description": "India's leading free QR code generator and UPI payment solution. Create custom QR codes for businesses, restaurants, marketing campaigns, and contactless payments. Professional QR code creator with logo integration and advanced features.",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "Customer Support",
+              "url": "https://freeupiqrgenerator.com/contact"
+            },
+            "founder": {
+              "@type": "Person",
+              "name": "UPI QR Generator Team"
+            },
+            "foundingDate": "2024",
+            "areaServed": "IN",
+            "knowsLanguage": "en",
             "sameAs": [
               "https://twitter.com/freeupiqr",
               "https://facebook.com/freeupiqr"
-            ]
+            ],
+            "serviceType": "QR Code Generation Service",
+            "hasOfferCatalog": {
+              "@type": "OfferCatalog",
+              "name": "UPI QR Code Services",
+              "itemListElement": [
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Free QR Code Generator",
+                    "description": "Create unlimited QR codes for UPI payments, contactless transactions, and digital wallet integration"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Custom QR Code Creator",
+                    "description": "Professional QR code design with logos, colors, and brand integration for marketing campaigns"
+                  }
+                },
+                {
+                  "@type": "Offer",
+                  "itemOffered": {
+                    "@type": "Service",
+                    "name": "Business QR Solutions",
+                    "description": "Advanced QR code generator with analytics, tracking, and bulk creation for enterprises"
+                  }
+                }
+              ]
+            }
           })
         }}
       />
@@ -63,10 +106,10 @@ export default function HomePage() {
             <div className="text-center space-y-6 mb-12">
               <div className="space-y-4">
                 <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-                  Free UPI QR Code Generator
+                  Free QR Code Generator: Create Professional UPI QR Codes
                 </h1>
                 <p className="text-lg sm:text-xl text-foreground-secondary max-w-3xl mx-auto">
-                  Create professional UPI QR codes in seconds. Completely free, fully customizable, and no sign-up required.
+                  India's #1 QR code generator for UPI payments, contactless transactions, and digital wallet integration. Create custom QR codes with logos, colors, and advanced tracking. Perfect for businesses, restaurants, and marketing campaigns.
                 </p>
 
                 {/* Trust Signals */}
@@ -109,9 +152,9 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-success/10 text-success rounded-full flex items-center justify-center mx-auto">
                   <Shield className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold">100% Secure</h3>
+                <h3 className="text-xl font-semibold">Bank-Level Security QR Generator</h3>
                 <p className="text-foreground-secondary">
-                  All processing happens in your browser. No data stored or transmitted to our servers.
+                  Secure QR code generation with client-side processing. Perfect for UPI payments and sensitive transaction QR codes. No data storage ensures maximum privacy for your digital payment solutions.
                 </p>
               </div>
 
@@ -119,9 +162,9 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-primary/10 text-primary rounded-full flex items-center justify-center mx-auto">
                   <Download className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold">Multiple Formats</h3>
+                <h3 className="text-xl font-semibold">Professional QR Code Formats</h3>
                 <p className="text-foreground-secondary">
-                  Download in PNG, SVG, or PDF formats. High resolution for print and digital use.
+                  Download QR codes in high-resolution PNG, scalable SVG, and print-ready PDF formats. Ideal for marketing materials, business cards, product packaging, and large-scale QR code campaigns.
                 </p>
               </div>
 
@@ -129,9 +172,9 @@ export default function HomePage() {
                 <div className="w-12 h-12 bg-secondary/10 text-secondary-600 rounded-full flex items-center justify-center mx-auto">
                   <Palette className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold">Full Customization</h3>
+                <h3 className="text-xl font-semibold">Advanced QR Code Customization</h3>
                 <p className="text-foreground-secondary">
-                  Add your logo, change colors, and create branded QR codes that match your business.
+                  Complete QR code designer with logo integration, color schemes, and brand customization. Create QR codes for restaurants, events, businesses, and marketing campaigns that maintain scannability.
                 </p>
               </div>
             </div>

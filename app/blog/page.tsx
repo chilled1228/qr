@@ -17,9 +17,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Blog - UPI QR Code Generator Guides & Tips | freeupiqrgenerator.com',
-  description: 'Learn everything about UPI QR codes with our comprehensive guides. Tips for businesses, individuals, and technical insights on digital payments.',
-  keywords: 'UPI QR code blog, UPI payment guides, QR code tips, digital payment tutorials, UPI for business',
+  title: 'QR Code Guides & Tutorials: Expert Tips for Digital Payments',
+  description: 'Complete QR code resource center with expert guides, business tutorials, marketing tips, and digital payment strategies. Master QR code creation, security best practices, and implementation for businesses.',
+  keywords: 'QR code guides, QR code tutorials, digital payment guides, QR code best practices, how to create QR codes, QR marketing tips, QR code security, business QR code implementation, QR code for restaurants, QR code analytics, contactless payment guides',
   alternates: {
     canonical: '/blog',
   },
@@ -27,10 +27,10 @@ export const metadata: Metadata = {
 
 const featuredArticles = [
   {
-    title: "The Ultimate Guide to UPI QR Codes",
-    description: "Everything you need to know about UPI QR codes, from basics to advanced usage for businesses and individuals.",
+    title: "Complete QR Code Guide: How to Create, Customize & Implement",
+    description: "Master QR code creation from basics to advanced implementation. Learn QR design, security, marketing applications, and business strategies for contactless payments.",
     slug: "upi-qr-codes-the-ultimate-guide",
-    category: "Guide",
+    category: "Complete Guide",
     readTime: "15 min read",
     featured: true,
     icon: BookOpen
@@ -39,18 +39,18 @@ const featuredArticles = [
 
 const businessArticles = [
   {
-    title: "How to Create a UPI QR Code for Your Shop",
-    description: "Step-by-step guide for retail businesses to set up UPI QR code payments and increase customer convenience.",
+    title: "Business QR Code Setup: Accept Digital Payments in Your Shop",
+    description: "Complete guide for businesses to implement QR code payment systems. Learn setup, security, customer training, and best practices for retail stores and restaurants.",
     slug: "upi-qr-code-for-shop",
-    category: "Business",
+    category: "Business Implementation",
     readTime: "8 min read",
     icon: Building
   },
   {
-    title: "Customizing Your UPI QR Code for Better Branding",
-    description: "Learn how to create branded QR codes that match your business identity and build customer trust.",
+    title: "QR Code Branding & Custom Design: Create Professional Business QR Codes",
+    description: "Design branded QR codes with logos, colors, and business identity. Learn QR customization techniques that maintain scannability while building brand recognition.",
     slug: "customize-upi-qr-code-branding",
-    category: "Business",
+    category: "QR Design",
     readTime: "6 min read",
     icon: Building
   }
@@ -58,18 +58,18 @@ const businessArticles = [
 
 const individualArticles = [
   {
-    title: "How to Easily Collect Payments from Friends and Family",
-    description: "Simple guide for individuals to use UPI QR codes for personal payments, splitting bills, and collecting money.",
+    title: "Personal QR Payments: Split Bills & Collect Money from Friends",
+    description: "Complete guide to using QR codes for personal transactions. Learn to split bills, collect money, and manage group payments with digital QR technology.",
     slug: "collect-payments-friends-family",
-    category: "Personal",
+    category: "Personal Finance",
     readTime: "5 min read",
     icon: Users
   },
   {
-    title: "Creating a Professional QR Code for Your Freelance Services",
-    description: "Freelancers guide to accepting payments professionally with customized UPI QR codes.",
+    title: "Freelancer QR Code Setup: Professional Payment Collection Guide",
+    description: "Create professional QR codes for freelance services and client payments. Learn branding, invoicing with QR codes, and payment tracking for independent professionals.",
     slug: "professional-qr-code-freelancers",
-    category: "Freelance",
+    category: "Freelance Business",
     readTime: "7 min read",
     icon: User
   }
@@ -77,18 +77,18 @@ const individualArticles = [
 
 const technicalArticles = [
   {
-    title: "Static vs. Dynamic UPI QR Codes: A Complete Guide",
-    description: "Understand the differences between static and dynamic QR codes and choose the right type for your needs.",
+    title: "Static vs Dynamic QR Codes: Technical Comparison & Best Uses",
+    description: "Deep dive into QR code technology: static vs dynamic QR codes, use cases, tracking capabilities, and when to choose each type for your business needs.",
     slug: "static-vs-dynamic-qr-codes",
-    category: "Technical",
+    category: "QR Technology",
     readTime: "10 min read",
     icon: TrendingUp
   },
   {
-    title: "Are UPI QR Code Payments Safe? Everything You Need to Know",
-    description: "Comprehensive analysis of UPI QR code security, best practices, and how to protect yourself from fraud.",
+    title: "QR Code Security Guide: Protect Payments & Prevent Fraud",
+    description: "Complete security analysis of QR code payments. Learn encryption, fraud prevention, secure QR generation, and best practices for safe digital transactions.",
     slug: "upi-qr-code-safety-security",
-    category: "Security",
+    category: "Digital Security",
     readTime: "12 min read",
     icon: TrendingUp
   }

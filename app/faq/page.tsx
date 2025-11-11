@@ -13,9 +13,9 @@ import {
 } from '@/components/ui/accordion';
 
 export const metadata: Metadata = {
-  title: 'FAQ - UPI QR Code Generator | freeupiqrgenerator.com',
-  description: 'Find answers to frequently asked questions about our free UPI QR code generator. Learn about security, features, usage, and more.',
-  keywords: 'UPI QR code FAQ, QR generator questions, UPI payment questions, QR code help',
+  title: 'QR Code FAQ: How to Create, Use & Secure Digital Payments',
+  description: 'Complete QR code FAQ answering all your questions: how to create QR codes, are QR payments safe, QR code expiration, customization, security best practices, and business implementation.',
+  keywords: 'QR code FAQ, how to create QR codes, are QR codes safe, QR code expiration, QR code security, QR customization, business QR codes, digital payment FAQ, UPI QR questions, QR generator help',
   alternates: {
     canonical: '/faq',
   },
@@ -130,10 +130,10 @@ export default function FAQPage() {
           <section className="text-center space-y-6 mb-16">
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-                Frequently Asked Questions
+                QR Code FAQ: Your Questions Answered
               </h1>
               <p className="text-lg sm:text-xl text-foreground-secondary max-w-3xl mx-auto">
-                Everything you need to know about creating and using UPI QR codes with our free generator.
+                Learn how to create QR codes, understand QR security, discover customization options, and get expert answers to all QR code generator questions.
               </p>
             </div>
           </section>

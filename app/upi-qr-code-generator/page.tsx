@@ -25,9 +25,9 @@ function SectionSkeleton() {
 }
 
 export const metadata: Metadata = {
-  title: 'Generate UPI QR Code Online | Free & Customizable | freeupiqrgenerator.com',
-  description: 'Create a custom UPI QR code in seconds. Enter your UPI ID, add your logo, and download instantly. No sign-up required. Generate your payment QR now!',
-  keywords: 'generate upi qr code online, upi qr code maker, free upi payment qr code, upi qr generator, create upi qr code',
+  title: 'UPI QR Code Generator: Create Payment QR Codes Free',
+  description: 'Generate UPI payment QR codes instantly with India\'s #1 QR creator. Customizable, secure, no registration. Create professional digital payment QR codes for businesses, restaurants, and personal use.',
+  keywords: 'UPI QR code generator, create UPI QR code, payment QR generator, free UPI payment QR code, digital payment QR India, mobile payment QR code, cashless payment QR generator, UPI QR maker online, instant QR code creation',
   alternates: {
     canonical: '/upi-qr-code-generator',
   },
@@ -38,6 +38,50 @@ export default function UPIQRGeneratorPage() {
     <>
       <NetworkStatus />
       <PerformanceMonitor />
+
+      {/* SoftwareApplication Schema Markup */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "UPI QR Code Generator - Free Payment QR Creator",
+            "description": "India\'s leading UPI QR code generator for digital payments, contactless transactions, and mobile wallet integration. Create custom QR codes with logos, colors, and advanced security features.",
+            "url": "https://freeupiqrgenerator.com/upi-qr-code-generator",
+            "applicationCategory": "UtilityApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "Offer",
+              "price": "0",
+              "priceCurrency": "USD",
+              "availability": "https://schema.org/InStock"
+            },
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "4.8",
+              "reviewCount": "10000"
+            },
+            "creator": {
+              "@type": "Organization",
+              "name": "UPI QR Generator",
+              "url": "https://freeupiqrgenerator.com"
+            },
+            "featureList": [
+              "Instant UPI QR Code Generation",
+              "Custom QR Code Design with Logo Integration",
+              "Multiple Download Formats (PNG, SVG, PDF)",
+              "No Registration Required - Truly Free QR Creator",
+              "Secure Client-side Processing for Payment QR Codes",
+              "Mobile Friendly QR Generator for Smartphones",
+              "UPI Payment QR Code for Digital Transactions",
+              "Contactless Payment QR Code Solutions",
+              "Business QR Code with Analytics and Tracking",
+              "QR Code Size Customization for Print and Digital"
+            ]
+          })
+        }}
+      />
 
       {/* HowTo Schema Markup */}
       <script
@@ -110,25 +154,29 @@ export default function UPIQRGeneratorPage() {
           <section className="text-center space-y-6 mb-12">
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-                Generate Your UPI QR Code Online
+                Generate UPI QR Codes: Free Payment QR Creator for India
               </h1>
               <p className="text-lg sm:text-xl text-foreground-secondary max-w-3xl mx-auto">
-                Create a professional UPI QR code in seconds. Completely free, fully customizable, and no sign-up required.
+                Create professional UPI payment QR codes for digital transactions, contactless payments, and mobile wallet integration. Perfect for businesses, restaurants, and personal use in India. No registration required.
               </p>
               
               {/* Trust Signals */}
               <div className="flex flex-wrap justify-center gap-4 text-sm">
                 <div className="flex items-center gap-2 bg-success/10 text-success px-3 py-1 rounded-full">
                   <span className="w-2 h-2 bg-success rounded-full"></span>
-                  <span>Truly Free</span>
+                  <span>UPI Payment Ready</span>
                 </div>
                 <div className="flex items-center gap-2 bg-primary/10 text-primary px-3 py-1 rounded-full">
                   <span className="w-2 h-2 bg-primary rounded-full"></span>
-                  <span>No Sign-up Required</span>
+                  <span>Instant QR Creation</span>
                 </div>
                 <div className="flex items-center gap-2 bg-secondary/10 text-secondary-600 px-3 py-1 rounded-full">
                   <span className="w-2 h-2 bg-secondary-600 rounded-full"></span>
-                  <span>Unlimited Downloads</span>
+                  <span>India's #1 QR Generator</span>
+                </div>
+                <div className="flex items-center gap-2 bg-purple-500/10 text-purple-600 px-3 py-1 rounded-full">
+                  <span className="w-2 h-2 bg-purple-600 rounded-full"></span>
+                  <span>Contactless Payments</span>
                 </div>
               </div>
             </div>

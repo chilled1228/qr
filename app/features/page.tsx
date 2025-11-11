@@ -19,9 +19,9 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Features - Free UPI QR Code Generator | freeupiqrgenerator.com',
-  description: 'Discover all features of our free UPI QR code generator: customization options, multiple download formats, security features, and more. No sign-up required.',
-  keywords: 'UPI QR code features, QR code customization, download formats, security features, free QR generator',
+  title: 'QR Code Features: Custom Generator, Design Tools & Advanced Options',
+  description: 'Complete QR code generator features: custom QR design tools, logo integration, multiple formats, secure processing. Professional QR creator for businesses, marketing, and payment solutions.',
+  keywords: 'QR code features, custom QR generator, QR code design tools, QR customization, QR code creator with logo, professional QR generator, QR code formats, secure QR code generator, QR code analytics, business QR solutions',
   alternates: {
     canonical: '/features',
   },
@@ -42,10 +42,10 @@ export default function FeaturesPage() {
           <section className="text-center space-y-6 mb-16">
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">
-                Powerful Features for Everyone
+                Advanced QR Code Generator Features & Design Tools
               </h1>
               <p className="text-lg sm:text-xl text-foreground-secondary max-w-3xl mx-auto">
-                Everything you need to create professional UPI QR codes. Completely free, forever.
+                Complete QR code creator with professional design tools, customization options, and enterprise features. Perfect for marketing campaigns, business solutions, and payment QR codes.
               </p>
             </div>
           </section>
@@ -58,22 +58,22 @@ export default function FeaturesPage() {
                 <div className="w-12 h-12 bg-success/10 text-success rounded-lg flex items-center justify-center mb-4">
                   <Shield className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Bank-Grade Security</h3>
+                <h3 className="text-xl font-semibold mb-3">Enterprise-Grade QR Security</h3>
                 <p className="text-foreground-secondary mb-4">
-                  All processing happens locally in your browser. Zero data storage, zero transmission, maximum privacy.
+                  Secure QR code generator with bank-level encryption and privacy protection. Perfect for payment QR codes, sensitive transactions, and enterprise QR solutions.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>No server-side processing</span>
+                    <span>Client-side QR code processing</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>SSL encrypted connection</span>
+                    <span>256-bit SSL encryption for QR codes</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>No data collection</span>
+                    <span>Zero data storage policy</span>
                   </li>
                 </ul>
               </div>
@@ -83,22 +83,22 @@ export default function FeaturesPage() {
                 <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center mb-4">
                   <Palette className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Full Customization</h3>
+                <h3 className="text-xl font-semibold mb-3">Professional QR Design Tools</h3>
                 <p className="text-foreground-secondary mb-4">
-                  Create branded QR codes that match your business identity with colors, logos, and styling options.
+                  Advanced QR code customization with logo integration, color schemes, and brand identity tools. Create professional QR codes for marketing, business cards, and campaigns.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Custom colors & themes</span>
+                    <span>Custom QR color palettes & themes</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Logo integration</span>
+                    <span>Logo and brand integration</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Size customization</span>
+                    <span>QR size & shape customization</span>
                   </li>
                 </ul>
               </div>
@@ -108,22 +108,22 @@ export default function FeaturesPage() {
                 <div className="w-12 h-12 bg-secondary/10 text-secondary-600 rounded-lg flex items-center justify-center mb-4">
                   <Download className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Multiple Formats</h3>
+                <h3 className="text-xl font-semibold mb-3">Professional QR Export Formats</h3>
                 <p className="text-foreground-secondary mb-4">
-                  Download your QR codes in the format that works best for your needs, from web to print.
+                  Download QR codes in multiple professional formats optimized for digital marketing, print materials, business cards, and large-scale campaigns.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>High-resolution PNG</span>
+                    <span>High-resolution PNG for digital use</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Scalable SVG</span>
+                    <span>Scalable SVG for infinite sizing</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Print-ready PDF</span>
+                    <span>Print-ready PDF for professional materials</span>
                   </li>
                 </ul>
               </div>
@@ -133,22 +133,22 @@ export default function FeaturesPage() {
                 <div className="w-12 h-12 bg-warning/10 text-warning rounded-lg flex items-center justify-center mb-4">
                   <Zap className="w-6 h-6" />
                 </div>
-                <h3 className="text-xl font-semibold mb-3">Lightning Fast</h3>
+                <h3 className="text-xl font-semibold mb-3">Instant QR Code Generation</h3>
                 <p className="text-foreground-secondary mb-4">
-                  Generate QR codes instantly with real-time preview. No waiting, no loading screens.
+                  Lightning-fast QR code creator with real-time preview and instant downloads. Generate unlimited QR codes in seconds for immediate use in campaigns and transactions.
                 </p>
                 <ul className="space-y-2 text-sm">
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Real-time generation</span>
+                    <span>Real-time QR code generation</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>Instant preview</span>
+                    <span>Live preview while customizing</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <CheckCircle className="w-4 h-4 text-success" />
-                    <span>One-click download</span>
+                    <span>One-click QR code download</span>
                   </li>
                 </ul>
               </div>

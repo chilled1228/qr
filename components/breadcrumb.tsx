@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { ChevronRight, Home } from 'lucide-react';
+import { useEffect } from 'react';
 
 interface BreadcrumbItem {
   label: string;
@@ -89,9 +90,47 @@ export function Breadcrumb() {
 
   const breadcrumbs = generateBreadcrumbs();
 
+  // Add BreadcrumbList Schema
+  useEffect(() => {
+    if (breadcrumbs.length > 1) {
+      const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": breadcrumbs.map((crumb, index) => ({
+          "@type": "ListItem",
+          "position": index + 1,
+          "name": crumb.label,
+          "item": `https://freeupiqrgenerator.com${crumb.href}`
+        }))
+      };
+
+      // Add schema to document head
+      const script = document.createElement('script');
+      script.type = 'application/ld+json';
+      script.innerHTML = JSON.stringify(breadcrumbSchema);
+      script.id = 'breadcrumb-schema';
+
+      // Remove existing schema if present
+      const existingSchema = document.getElementById('breadcrumb-schema');
+      if (existingSchema) {
+        existingSchema.remove();
+      }
+
+      document.head.appendChild(script);
+
+      // Cleanup on unmount
+      return () => {
+        const schema = document.getElementById('breadcrumb-schema');
+        if (schema) {
+          schema.remove();
+        }
+      };
+    }
+  }, [breadcrumbs]);
+
   return (
-    <nav 
-      className="mobile-container py-4 border-b border-border bg-muted/30" 
+    <nav
+      className="mobile-container py-4 border-b border-border bg-muted/30"
       aria-label="Breadcrumb"
     >
       <ol className="flex items-center space-x-2 text-sm">

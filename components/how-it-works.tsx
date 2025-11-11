@@ -2,23 +2,24 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { QrCode, Download, Smartphone } from 'lucide-react';
+import Link from 'next/link';
 
 export function HowItWorks() {
   const steps = [
     {
       icon: QrCode,
-      title: 'Step 1: Input Your UPI ID',
-      description: 'Enter your UPI ID, merchant name, and optional amount. Our generator supports all major UPI apps like PhonePe, Google Pay, and Paytm.',
+      title: 'Step 1: Input UPI Payment Details',
+      description: 'Enter your UPI ID, merchant name, and optional amount for payment QR code generation. Our free QR generator supports all major UPI apps for digital transactions.',
     },
     {
       icon: Smartphone,
-      title: 'Step 2: Customize Your QR Code',
-      description: 'Choose colors, upload your logo, and adjust the size. Create a branded UPI QR code that matches your business identity.',
+      title: 'Step 2: Design Custom QR Code',
+      description: 'Create branded QR codes with logo integration, color customization, and professional design tools. Perfect for business QR codes and marketing campaigns.',
     },
     {
       icon: Download,
-      title: 'Step 3: Download & Share',
-      description: 'Download your UPI QR code in high-resolution PNG or SVG format. Print it or share digitally to start accepting payments instantly.',
+      title: 'Step 3: Export QR for Multiple Uses',
+      description: 'Download QR codes in high-resolution formats (PNG, SVG, PDF) for print, digital marketing, and payment processing. Immediate use for contactless payments.',
     },
   ];
 
@@ -50,12 +51,39 @@ export function HowItWorks() {
         ))}
       </div>
 
-      <div className="mt-12 sm:mt-16 text-center">
+      <div className="mt-12 sm:mt-16 text-center space-y-6">
         <div className="inline-flex items-center gap-2 px-4 py-2 bg-success/10 text-success rounded-full">
           <div className="w-2 h-2 bg-success rounded-full"></div>
           <p className="text-sm sm:text-base font-medium">
-            Used by over 10,000+ merchants across India for secure UPI payments
+            Used by 50,000+ businesses across India for secure UPI payments and QR code solutions
           </p>
+        </div>
+
+        <div className="flex flex-wrap justify-center gap-4 text-sm">
+          <Link
+            href="/upi-qr-code-generator"
+            className="text-primary hover:text-primary/80 font-medium underline"
+          >
+            Start Creating QR Codes
+          </Link>
+          <Link
+            href="/features"
+            className="text-primary hover:text-primary/80 font-medium underline"
+          >
+            Explore QR Design Features
+          </Link>
+          <Link
+            href="/blog"
+            className="text-primary hover:text-primary/80 font-medium underline"
+          >
+            Learn QR Code Best Practices
+          </Link>
+          <Link
+            href="/faq"
+            className="text-primary hover:text-primary/80 font-medium underline"
+          >
+            QR Security Questions
+          </Link>
         </div>
       </div>
     </section>

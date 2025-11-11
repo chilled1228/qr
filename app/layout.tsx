@@ -8,8 +8,8 @@ import { Analytics } from '@/components/analytics';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'Free UPI QR Code Generator: Create Your QR in Seconds | freeupiqrgenerator.com',
-  description: 'The easiest way to create a free UPI QR code. Generate unlimited, high-resolution QR codes for payments instantly. No ads, no sign-up required. Try it now!',
+  title: 'UPI QR Generator: Free QR Code Creator | UPI QR',
+  description: 'Create free UPI QR codes instantly. Professional QR generator with customization, no sign-up required. Generate payment QR codes in seconds.',
   keywords: 'free upi qr code generator, upi qr generator, create upi qr code, upi qr code maker, generate upi qr code online, free upi payment qr code',
   authors: [{ name: 'UPI QR Generator' }],
   creator: 'UPI QR Generator',
@@ -24,9 +24,9 @@ export const metadata: Metadata = {
     canonical: '/',
   },
   openGraph: {
-    title: 'Free UPI QR Code Generator – Instant & Secure UPI Code Maker',
-    description: 'Create your UPI QR code instantly. Free, secure, customizable—accept payments via UPI seamlessly.',
-    url: 'https://upi-qr-generator.vercel.app',
+    title: 'UPI QR Generator: Free QR Code Creator | UPI QR',
+    description: 'Create free UPI QR codes instantly. Professional QR generator with customization, no sign-up required. Generate payment QR codes now.',
+    url: 'https://freeupiqrgenerator.com',
     siteName: 'UPI QR Generator',
     locale: 'en_US',
     type: 'website',
@@ -35,14 +35,14 @@ export const metadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'UPI QR Code Generator',
+        alt: 'UPI QR Code Generator - Create Free Payment QR Codes',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Free UPI QR Code Generator – Instant & Secure',
-    description: 'Create your UPI QR code instantly. Free, secure, customizable—accept payments via UPI seamlessly.',
+    title: 'UPI QR Generator: Free QR Code Creator | UPI QR',
+    description: 'Create free UPI QR codes instantly. Professional QR generator with customization, no sign-up required. Generate payment QR codes now.',
     images: ['/og-image.png'],
   },
   robots: {

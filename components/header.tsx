@@ -23,12 +23,12 @@ export function Header() {
   };
 
   const navigationItems = [
-    { href: '/', label: 'Home', description: 'Free UPI QR Generator' },
-    { href: '/upi-qr-code-generator', label: 'Generator', description: 'Create QR Code' },
-    { href: '/features', label: 'Features', description: 'What we offer' },
-    { href: '/blog', label: 'Guides', description: 'Learn & Tips' },
-    { href: '/faq', label: 'FAQ', description: 'Get answers' },
-    { href: '/contact', label: 'Contact', description: 'Get support' },
+    { href: '/', label: 'Home', description: 'Free QR Code Generator' },
+    { href: '/upi-qr-code-generator', label: 'QR Creator', description: 'Create Payment QR Codes' },
+    { href: '/features', label: 'Features', description: 'QR Design Tools & Options' },
+    { href: '/blog', label: 'Guides', description: 'QR Code Tutorials & Tips' },
+    { href: '/faq', label: 'FAQ', description: 'QR Questions Answered' },
+    { href: '/contact', label: 'Contact', description: 'QR Generator Support' },
   ];
 
   const isActivePath = (href: string) => {
@@ -93,7 +93,7 @@ export function Header() {
               href="/upi-qr-code-generator"
               className="bg-primary text-primary-foreground px-4 py-2 rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
             >
-              Generate QR Code
+              Create Free QR Code
             </Link>
 
             {/* Trust Signals */}

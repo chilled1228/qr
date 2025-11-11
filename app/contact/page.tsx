@@ -14,8 +14,8 @@ import {
 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Contact Us - UPI QR Code Generator | freeupiqrgenerator.com',
-  description: 'Get in touch with our support team for help with the UPI QR code generator. Find answers to your questions and get technical support.',
+  title: 'Contact UPI QR Generator | Support & Help | UPI QR',
+  description: 'Need help with UPI QR codes? Contact our support team for technical assistance, feature requests, or questions about our free QR generator.',
   keywords: 'contact UPI QR generator, support, help, technical assistance',
   alternates: {
     canonical: '/contact',
