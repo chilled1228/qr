@@ -75,6 +75,33 @@ const individualArticles = [
   }
 ];
 
+const industryArticles = [
+  {
+    title: "Restaurant QR Code Menu System: Complete Setup Guide",
+    description: "Transform your restaurant with QR menu systems. Learn to create digital menus, table ordering QR codes, and contactless dining experiences for cafes and restaurants.",
+    slug: "restaurant-qr-menu-system",
+    category: "Restaurant Technology",
+    readTime: "12 min read",
+    icon: Building
+  },
+  {
+    title: "E-commerce QR Code Integration: Boost Online Sales",
+    description: "Complete guide for online stores to integrate QR codes for payments, product tracking, and marketing. Best practices for Shopify, Amazon, and custom e-commerce platforms.",
+    slug: "ecommerce-qr-code-integration",
+    category: "E-commerce Solutions",
+    readTime: "10 min read",
+    icon: TrendingUp
+  },
+  {
+    title: "Healthcare QR Systems: Patient Management & Digital Records",
+    description: "Implement QR codes in healthcare for patient registration, appointment scheduling, and digital health records. HIPAA-compliant QR solutions for medical facilities.",
+    slug: "healthcare-qr-code-systems",
+    category: "Healthcare Technology",
+    readTime: "15 min read",
+    icon: Users
+  }
+];
+
 const technicalArticles = [
   {
     title: "Static vs Dynamic QR Codes: Technical Comparison & Best Uses",
@@ -209,6 +236,21 @@ export default function BlogPage() {
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   {individualArticles.map((article, index) => (
+                    <ArticleCard key={index} article={article} />
+                  ))}
+                </div>
+              </div>
+
+              {/* Industry-Specific Content */}
+              <div>
+                <div className="mb-8">
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-4">Industry Solutions</h2>
+                  <p className="text-foreground-secondary">
+                    Specialized QR code guides for restaurants, e-commerce, healthcare, and other industries
+                  </p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {industryArticles.map((article, index) => (
                     <ArticleCard key={index} article={article} />
                   ))}
                 </div>

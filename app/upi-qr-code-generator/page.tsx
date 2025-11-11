@@ -145,6 +145,38 @@ export default function UPIQRGeneratorPage() {
         }}
       />
 
+      {/* Video Schema Markup for Tutorial */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "VideoObject",
+            "name": "How to Create UPI QR Codes: Step-by-Step Tutorial",
+            "description": "Complete tutorial showing how to create UPI QR codes for payments in under 2 minutes. Learn customization, security features, and business implementation.",
+            "thumbnailUrl": "https://freeupiqrgenerator.com/video-thumbnail.jpg",
+            "uploadDate": "2025-01-11",
+            "duration": "PT2M30S",
+            "contentUrl": "https://freeupiqrgenerator.com/qr-generator-tutorial.mp4",
+            "embedUrl": "https://freeupiqrgenerator.com/video-embed",
+            "publisher": {
+              "@type": "Organization",
+              "name": "UPI QR Generator",
+              "url": "https://freeupiqrgenerator.com"
+            },
+            "author": {
+              "@type": "Organization",
+              "name": "UPI QR Generator"
+            },
+            "potentialAction": {
+              "@type": "SeekToAction",
+              "target": "https://freeupiqrgenerator.com/video?t={seek_to_second}",
+              "startOffset-input": "required name=seek_to_second"
+            }
+          })
+        }}
+      />
+
       <div className="bg-background">
         <Header />
         <Breadcrumb />

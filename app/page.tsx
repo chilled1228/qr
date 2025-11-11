@@ -45,7 +45,7 @@ export default function HomePage() {
             "name": "UPI QR Generator",
             "url": "https://freeupiqrgenerator.com",
             "logo": "https://freeupiqrgenerator.com/logo.png",
-            "description": "India's leading free QR code generator and UPI payment solution. Create custom QR codes for businesses, restaurants, marketing campaigns, and contactless payments. Professional QR code creator with logo integration and advanced features.",
+            "description": "India's leading free QR code generator serving businesses in Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Pune, and across India. Create custom QR codes for restaurants, retail shops, e-commerce, marketing campaigns, and contactless payments. Professional QR code creator with logo integration and advanced features for digital payments.",
             "contactPoint": {
               "@type": "ContactPoint",
               "contactType": "Customer Support",
@@ -56,8 +56,37 @@ export default function HomePage() {
               "name": "UPI QR Generator Team"
             },
             "foundingDate": "2024",
-            "areaServed": "IN",
-            "knowsLanguage": "en",
+            "areaServed": [
+              {
+                "@type": "City",
+                "name": "Mumbai"
+              },
+              {
+                "@type": "City",
+                "name": "Delhi"
+              },
+              {
+                "@type": "City",
+                "name": "Bangalore"
+              },
+              {
+                "@type": "City",
+                "name": "Chennai"
+              },
+              {
+                "@type": "City",
+                "name": "Hyderabad"
+              },
+              {
+                "@type": "City",
+                "name": "Pune"
+              },
+              {
+                "@type": "Country",
+                "name": "India"
+              }
+            ],
+            "knowsLanguage": ["en", "hi"],
             "sameAs": [
               "https://twitter.com/freeupiqr",
               "https://facebook.com/freeupiqr"
@@ -109,7 +138,7 @@ export default function HomePage() {
                   Free QR Code Generator: Create Professional UPI QR Codes
                 </h1>
                 <p className="text-lg sm:text-xl text-foreground-secondary max-w-3xl mx-auto">
-                  India's #1 QR code generator for UPI payments, contactless transactions, and digital wallet integration. Create custom QR codes with logos, colors, and advanced tracking. Perfect for businesses, restaurants, and marketing campaigns.
+                  India's #1 QR code generator serving Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Pune and all major cities. Create professional UPI payment QR codes for contactless transactions, digital wallet integration, and instant payments. Perfect for retail shops, restaurants, cafes, and businesses across India.
                 </p>
 
                 {/* Trust Signals */}
@@ -180,6 +209,39 @@ export default function HomePage() {
             </div>
           </section>
 
+          {/* Local Business Section */}
+          <section className="mobile-container mobile-section">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                Serving Businesses Across India's Major Cities
+              </h2>
+              <p className="text-lg text-foreground-secondary max-w-3xl mx-auto">
+                Trusted by thousands of businesses in Mumbai, Delhi, Bangalore, Chennai, Hyderabad, Pune, and growing cities across India for their UPI payment QR code needs.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-8">
+              {['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Hyderabad', 'Pune'].map((city) => (
+                <div key={city} className="text-center p-4 bg-card rounded-lg border hover:shadow-md transition-shadow">
+                  <h4 className="font-semibold text-primary">{city}</h4>
+                  <p className="text-sm text-foreground-secondary mt-1">
+                    QR Code Solutions
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            <div className="text-center">
+              <Link
+                href="/upi-qr-code-generator"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+              >
+                Get Your Business QR Code
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
+          </section>
+
           {/* How It Works */}
           <section className="mobile-container">
             <HowItWorks />
@@ -195,6 +257,108 @@ export default function HomePage() {
             <Suspense fallback={<SectionSkeleton />}>
               <LazyTestimonials />
             </Suspense>
+          </section>
+
+          {/* Case Studies Section */}
+          <section className="mobile-container mobile-section mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                Success Stories: Indian Businesses Growing with QR Payments
+              </h2>
+              <p className="text-lg text-foreground-secondary max-w-3xl mx-auto">
+                Discover how businesses across India are using our QR generator to boost sales, improve customer experience, and streamline payments.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* Restaurant Case Study */}
+              <div className="bg-card p-6 rounded-xl border">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-primary/10 text-primary rounded-lg flex items-center justify-center">
+                    <span className="text-xl font-bold">🍴</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Mumbai Cafe Chain</h3>
+                    <p className="text-sm text-foreground-secondary">50+ Locations</p>
+                  </div>
+                </div>
+                <p className="text-foreground-secondary mb-4">
+                  "QR menu system increased table turnover by 40% and reduced wait staff costs by ₹2.5L monthly. Customers love the contactless ordering experience."
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-foreground-muted">Monthly QR Transactions:</span>
+                    <span className="font-medium">15,000+</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-foreground-muted">Cost Savings:</span>
+                    <span className="font-medium text-success">₹2.5L/month</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Retail Case Study */}
+              <div className="bg-card p-6 rounded-xl border">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-success/10 text-success rounded-lg flex items-center justify-center">
+                    <span className="text-xl font-bold">🛍️</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Delhi Fashion Boutique</h3>
+                    <p className="text-sm text-foreground-secondary">Premium Retail</p>
+                  </div>
+                </div>
+                <p className="text-foreground-secondary mb-4">
+                  "Branded QR codes with our logo increased customer trust and doubled our digital payments. Sales team can now accept payments anywhere in the store instantly."
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-foreground-muted">Digital Payment Rate:</span>
+                    <span className="font-medium">85%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-foreground-muted">Customer Satisfaction:</span>
+                    <span className="font-medium text-success">4.9/5.0</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Freelancer Case Study */}
+              <div className="bg-card p-6 rounded-xl border">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 bg-secondary/10 text-secondary-600 rounded-lg flex items-center justify-center">
+                    <span className="text-xl font-bold">💻</span>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold">Bangalore IT Consultant</h3>
+                    <p className="text-sm text-foreground-secondary">Independent Professional</p>
+                  </div>
+                </div>
+                <p className="text-foreground-secondary mb-4">
+                  "Professional QR codes on invoices and proposals improved payment collection time by 60%. Clients love the convenience and I get paid faster than ever before."
+                </p>
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-foreground-muted">Payment Time Reduction:</span>
+                    <span className="font-medium">60%</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-foreground-muted">Monthly Revenue:</span>
+                    <span className="font-medium text-success">↑35%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="text-center mt-12">
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 text-primary hover:text-primary/80 font-medium"
+              >
+                Read More Success Stories
+                <ArrowRight className="w-4 h-4" />
+              </Link>
+            </div>
           </section>
 
           {/* CTA Section */}

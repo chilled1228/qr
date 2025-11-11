@@ -263,6 +263,173 @@ export default function FeaturesPage() {
               </Link>
             </div>
           </section>
+          {/* Competitive Comparison Section */}
+          <section className="mobile-container mobile-section mb-16">
+            <div className="text-center mb-12">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                Why We're Better Than Other QR Generators
+              </h2>
+              <p className="text-lg text-foreground-secondary max-w-3xl mx-auto">
+                See how our free QR generator compares to paid alternatives and other free tools in the market.
+              </p>
+            </div>
+
+            <div className="bg-card rounded-xl border p-6 md:p-8">
+              <div className="overflow-x-auto">
+                <table className="w-full text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="text-left py-3 px-4 font-semibold">Feature</th>
+                      <th className="text-center py-3 px-4 font-semibold text-primary">Our QR Generator</th>
+                      <th className="text-center py-3 px-4 font-semibold">Other Free Tools</th>
+                      <th className="text-center py-3 px-4 font-semibold">Paid Alternatives</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
+                          <span className="font-medium">Cost</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-success/10 text-success">100% Free</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-success/10 text-success">Free</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-destructive/10 text-destructive">₹299-999/month</span>
+                      </td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
+                          <span className="font-medium">No Registration Required</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">Sometimes</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">Required</span>
+                      </td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
+                          <span className="font-medium">Logo Integration</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-destructive/10 text-destructive">Limited</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
+                          <span className="font-medium">Multiple Formats (PNG, SVG, PDF)</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">PNG only</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                    </tr>
+                    <tr className="border-b">
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
+                          <span className="font-medium">Client-Side Security</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">Variable</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">Server-based</span>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td className="py-4 px-4">
+                        <div className="flex items-center gap-2">
+                          <div className="w-2 h-2 bg-success rounded-full"></div>
+                          <span className="font-medium">Unlimited QR Codes</span>
+                        </div>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <CheckCircle className="w-5 h-5 text-success mx-auto" />
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-destructive/10 text-destructive">Daily Limits</span>
+                      </td>
+                      <td className="py-4 px-4 text-center">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-warning/10 text-warning">With Plans</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="mt-8 p-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg">
+                <h3 className="text-lg font-semibold mb-3 text-center">
+                  Choose the Best QR Code Generator for Your Business
+                </h3>
+                <p className="text-center text-foreground-secondary mb-4">
+                  Why pay for features you can get for free? Our generator offers everything paid tools provide and more, without any hidden costs or registration requirements.
+                </p>
+                <div className="flex justify-center">
+                  <Link
+                    href="/upi-qr-code-generator"
+                    className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-6 py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors"
+                  >
+                    Try the Best Free QR Generator
+                    <ArrowRight className="w-4 h-4" />
+                  </Link>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* CTA Section */}
+          <section className="text-center mb-16">
+            <div className="max-w-2xl mx-auto space-y-6 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-2xl p-8">
+              <h2 className="text-2xl sm:text-3xl font-bold">
+                Ready to Create Your UPI QR Code?
+              </h2>
+              <p className="text-lg text-foreground-secondary">
+                Experience all these features for free. No sign-up required.
+              </p>
+              <Link
+                href="/upi-qr-code-generator"
+                className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+              >
+                Start Generating Now
+                <ArrowRight className="w-5 h-5" />
+              </Link>
+            </div>
+          </section>
         </main>
 
         <Footer />
